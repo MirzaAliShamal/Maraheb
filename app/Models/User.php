@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
@@ -18,9 +19,24 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'avatar',
+        'first_name',
+        'last_name',
         'email',
+        'mobile_no',
         'password',
+        'dob',
+        'gender',
+        'address',
+        'country',
+        'city',
+        'zip_code',
+        'experience',
+        'specalise',
+        'intro_video',
+        'cv',
+        'profile_status',
+        'visibility_status',
     ];
 
     /**
@@ -40,5 +56,19 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'specalise' => 'array'
     ];
+
+    public function getNameAttribute() {
+        return ucfirst($this->first_name) . ' ' . ucfirst($this->last_name);
+    }
+
+    public function getProfileAttribute()
+    {
+        if ($this->avatar == null) {
+            return "https://ui-avatars.com/api/?name={$this->name}";
+        } else {
+            return Storage::disk('public')->url($this->avatar);
+        }
+    }
 }

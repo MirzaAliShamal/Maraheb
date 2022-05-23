@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,12 +14,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
-
 require __DIR__.'/auth.php';
+
+
+Route::get('/', [HomeController::class, 'home'])->name('home');
+
+Route::controller(HomeController::class)->group(function () {
+    Route::get('/mobile-verify', 'mobileVerify')->name('mobile.verify');
+    Route::post('/otp-verify', 'otpVerify')->name('otp.verify');
+});

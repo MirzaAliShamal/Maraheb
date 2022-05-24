@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\ResturantManager;
 
+use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -26,16 +27,17 @@ class ProfileController extends Controller
         $resturant_manager->avatar = $req->upload_avatar;
         $resturant_manager->first_name = $req->first_name;
         $resturant_manager->last_name = $req->last_name;
+        $resturant_manager->age = Carbon::parse($req->dob)->diff(Carbon::now())->y;
         $resturant_manager->dob = $req->dob;
         $resturant_manager->gender = $req->gender;
         $resturant_manager->address = $req->address;
         $resturant_manager->country = $req->country;
         $resturant_manager->city = $req->city;
         $resturant_manager->zip_code = $req->zip_code;
-        $resturant_manager->experience = $req->experience;
-        $resturant_manager->specalise = $req->specalise;
-        $resturant_manager->intro_video = $req->intro_video;
-        $resturant_manager->cv = $req->upload_cv;
+        $resturant_manager->resturant_logo = $req->resturant_logo;
+        $resturant_manager->resturant_name = $req->resturant_name;
+        $resturant_manager->resturant_address = $req->resturant_address;
+        $resturant_manager->resturant_trade_license = $req->resturant_trade_license;
         $resturant_manager->profile_status = 'submitted';
         $resturant_manager->save();
 
@@ -67,24 +69,11 @@ class ProfileController extends Controller
                     'error' => 'No file found',
                 ]);
             }
-        } elseif ($type == "intro_video") {
-            if (!is_null($resturant_manager->intro_video)) {
-                $obj['name'] = $resturant_manager->intro_video;
-                $obj['path'] = Storage::disk('public')->url($resturant_manager->intro_video);
-                $obj['size'] = Storage::disk('public')->size($resturant_manager->intro_video);
-                $data[] = $obj;
-
-                return response()->json($data);
-            } else {
-                return response()->json([
-                    'error' => 'No file found',
-                ]);
-            }
-        } else if ($type == "cv") {
-            if (!is_null($resturant_manager->cv)) {
-                $obj['name'] = $resturant_manager->cv;
-                $obj['path'] = Storage::disk('public')->url($resturant_manager->cv);
-                $obj['size'] = Storage::disk('public')->size($resturant_manager->cv);
+        } elseif ($type == "resturant_logo") {
+            if (!is_null($resturant_manager->resturant_logo)) {
+                $obj['name'] = $resturant_manager->resturant_logo;
+                $obj['path'] = Storage::disk('public')->url($resturant_manager->resturant_logo);
+                $obj['size'] = Storage::disk('public')->size($resturant_manager->resturant_logo);
                 $data[] = $obj;
 
                 return response()->json($data);

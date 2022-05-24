@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\User;
 
+use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -26,13 +27,15 @@ class ProfileController extends Controller
         $user->avatar = $req->upload_avatar;
         $user->first_name = $req->first_name;
         $user->last_name = $req->last_name;
+        $user->age = Carbon::parse($req->dob)->diff(Carbon::now())->y;
         $user->dob = $req->dob;
         $user->gender = $req->gender;
         $user->address = $req->address;
         $user->country = $req->country;
         $user->city = $req->city;
         $user->zip_code = $req->zip_code;
-        $user->experience = $req->experience;
+        $user->experience_min = $req->experience_min;
+        $user->experience_max = $req->experience_max;
         $user->specalise = $req->specalise;
         $user->intro_video = $req->intro_video;
         $user->cv = $req->upload_cv;

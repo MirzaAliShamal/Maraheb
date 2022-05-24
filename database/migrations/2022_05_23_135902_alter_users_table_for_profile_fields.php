@@ -14,7 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('dob')->nullable()->after('password');
+            $table->string('age')->nullable()->after('password');
+            $table->string('dob')->nullable()->after('age');
             $table->string('gender')->nullable()->after('dob');
             $table->string('address')->nullable()->after('gender');
             $table->string('country')->nullable()->after('address');
@@ -24,6 +25,7 @@ return new class extends Migration
             $table->text('specalise')->nullable()->after('experience');
             $table->string('intro_video')->nullable()->after('specalise');
             $table->string('cv')->nullable()->after('intro_video');
+            $table->float('rate_per_hour')->nullable()->after('cv');
             $table->enum('profile_status', ['pending', 'submitted', 'approved', 'rejected'])->default('pending')->after('cv');
             $table->boolean('visibility_status')->default(1)->after('profile_status');
         });

@@ -984,6 +984,28 @@
 		$( ".salary-amount .max" ).text( $( ".salary-range-slider" ).slider( "values", 1 ));
 	}
 
+	if($('.experience-range-slider').length){
+		$( ".experience-range-slider" ).slider({
+			range: true,
+			min: 0,
+			max: 50,
+			values: [ 0, 5 ],
+			slide: function( event, ui ) {
+				$( ".experience-amount .min" ).text( ui.values[0]);
+				$( ".experience-amount .max" ).text( ui.values[1]);
+
+				$( "[name='experience_min']" ).val( ui.values[0]);
+				$( "[name='experience_max']" ).val( ui.values[1]);
+			}
+		});
+
+		$( ".experience-amount .min" ).text( $( ".experience-range-slider" ).slider( "values", 0 ));
+		$( ".experience-amount .max" ).text( $( ".experience-range-slider" ).slider( "values", 1 ));
+
+		$( "[name='experience_min']" ).val( $( ".experience-range-slider" ).slider( "values", 0 ));
+		$( "[name='experience_max']" ).val( $( ".experience-range-slider" ).slider( "values", 1 ));
+	}
+
 	//LightBox / Fancybox
 	if($('.lightbox-image').length) {
 		$('.lightbox-image').fancybox({

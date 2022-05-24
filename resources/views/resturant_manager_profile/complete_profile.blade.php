@@ -79,23 +79,12 @@
                                             <label for="zip_code">Zip/Postal Code *</label>
                                             <input type="text" id="zip_code" name="zip_code" value="" onkeyup="validateBtn()" placeholder="12345" autocomplete="off">
                                         </div>
-                                        <div class="form-group col-lg-6 col-md-12">
-                                            <label for="experience">Experience *</label>
-                                            <input type="text" id="experience" name="experience" value="" onkeyup="validateBtn()" placeholder="5-10 Years" autocomplete="off">
-                                        </div>
-                                        <div class="form-group col-lg-6 col-md-12">
-                                            <label for="experience">Specalise in *</label>
-                                            <select data-placeholder="Choose a field..." name="specalise[]" onchange="validateBtn()" class="chosen-select" multiple tabindex="4">
-                                                <option value="Banking">Banking</option>
-                                                <option value="Digital & Creative">Digital & Creative</option>
-                                                <option value="Retail">Retail</option>
-                                                <option value="Human Resources">Human Resources</option>
-                                                <option value="Management">Management</option>
-                                            </select>
+                                        <div class="col-12">
+                                            <h5 class="fw-bold mb-3">Resturant Details</h5>
                                         </div>
                                         <div class="form-group col-lg-12 col-md-12">
-                                            <label for="intro_video">Intro Video *</label>
-                                            <div class="dropzone" id="intro_video">
+                                            <label for="resturant_logo">Resturant Logo *</label>
+                                            <div class="dropzone" id="resturant_logo">
                                                 <!--begin::Message-->
                                                 <div class="dz-message needsclick">
                                                     <!--begin::Icon-->
@@ -104,37 +93,27 @@
 
                                                     <!--begin::Info-->
                                                     <div class="ms-4">
-                                                        <h3 class="fs-5 fw-bolder text-gray-900 mb-1">Drop video here or click to
+                                                        <h3 class="fs-5 fw-bolder text-gray-900 mb-1">Drop image here or click to
                                                             upload.</h3>
-                                                        <span class="fs-7 fw-bold text-gray-400">Upload only 1 video at a
+                                                        <span class="fs-7 fw-bold text-gray-400">Upload only 1 image at a
                                                             time</span>
                                                     </div>
                                                     <!--end::Info-->
                                                 </div>
                                             </div>
-                                            <input type="hidden" name="intro_video" class="intro_video" value="">
+                                            <input type="hidden" name="resturant_logo" class="resturant_logo" value="">
                                         </div>
-
+                                        <div class="form-group col-lg-6 col-md-12">
+                                            <label for="resturant_name">Resturant Name *</label>
+                                            <input type="text" id="resturant_name" name="resturant_name" value="" onkeyup="validateBtn()" placeholder="KFC" autocomplete="off">
+                                        </div>
+                                        <div class="form-group col-lg-6 col-md-12">
+                                            <label for="resturant_trade_license">Resturant Trade License *</label>
+                                            <input type="text" id="resturant_trade_license" name="resturant_trade_license" value="" onkeyup="validateBtn()" placeholder="123456" autocomplete="off">
+                                        </div>
                                         <div class="form-group col-lg-12 col-md-12">
-                                            <label for="upload_cv">Upload CV *</label>
-                                            <div class="dropzone" id="upload_cv">
-                                                <!--begin::Message-->
-                                                <div class="dz-message needsclick">
-                                                    <!--begin::Icon-->
-                                                    <i class="bi bi-file-earmark-arrow-up text-primary fs-3x"></i>
-                                                    <!--end::Icon-->
-
-                                                    <!--begin::Info-->
-                                                    <div class="ms-4">
-                                                        <h3 class="fs-5 fw-bolder text-gray-900 mb-1">Drop .docs/.pdf here or click to
-                                                            upload.</h3>
-                                                        <span class="fs-7 fw-bold text-gray-400">Upload only 1 file at a
-                                                            time</span>
-                                                    </div>
-                                                    <!--end::Info-->
-                                                </div>
-                                            </div>
-                                            <input type="hidden" name="upload_cv" class="upload_cv" value="">
+                                            <label for="resturant_address">Resturant Address *</label>
+                                            <input type="text" id="resturant_address" name="resturant_address" value="" onkeyup="validateBtn()" placeholder="" autocomplete="off">
                                         </div>
                                     </div>
                                 </div>

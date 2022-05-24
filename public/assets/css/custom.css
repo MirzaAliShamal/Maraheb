@@ -1,0 +1,44 @@
+.fireworks {
+    z-index: 99999999;
+    position: absolute;
+    width: 14px;
+    height: 10px;
+}
+
+.fireworks-animation1 {
+    animation: first;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+}
+
+.fireworks-animation2 {
+    animation: second;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+}
+
+@keyframes first {
+    0% {
+        top: 0px;
+    }
+    50% {
+        transform: translateX(300px) rotate3d(1,1,1,20deg) scale(0.6);
+    }
+    100% {
+        top: 100vh;
+        transform: translateX(-300px) rotate3d(1,1,1,45deg) scale(1);
+    }
+}
+
+@keyframes second {
+    0% {
+        top: 0px;
+    }
+    50% {
+        transform: translateX(-300px) rotate3d(1,1,1,20deg) scale(0.6);
+    }
+    100% {
+        top: 100vh;
+        transform: translateX(300px) rotate3d(1,1,1,45deg) scale(1);
+    }
+}

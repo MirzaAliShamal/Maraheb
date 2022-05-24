@@ -40,7 +40,7 @@ class RegisteredUserController extends Controller
             'first_name' => ['required', 'string', 'max:191'],
             'last_name' => ['required', 'string', 'max:191'],
             'email' => ['required', 'string', 'email', 'max:191', 'unique:users', 'unique:resturant_managers'],
-            'mobile_no' => ['required', 'max:191'],
+            'mobile_no' => ['required', 'max:191', 'unique:users', 'unique:resturant_managers'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
@@ -48,9 +48,9 @@ class RegisteredUserController extends Controller
             $otp = generateNumericOTP(6);
             session(['otp' => $otp]);
 
-            $account_sid = 'ACbedec4ea2b30a5334db75f783d174a0a';
-            $auth_token = 'b3538c01d799804655e20f4fd4024077';
-            $twilio_number = '+15817052401';
+            $account_sid = 'ACecc0da9b492db2a6ad9835b6b319ae35';
+            $auth_token = '8ea98c67307cedd5a1171c7d6c68560e';
+            $twilio_number = '+447360543660';
 
             $client = new Client($account_sid, $auth_token);
             $client->messages->create(trim($request->mobile_no), [

@@ -25,13 +25,15 @@ class User extends Authenticatable
         'email',
         'mobile_no',
         'password',
+        'age',
         'dob',
         'gender',
         'address',
         'country',
         'city',
         'zip_code',
-        'experience',
+        'experience_min',
+        'experience_max',
         'specalise',
         'intro_video',
         'cv',
@@ -70,5 +72,9 @@ class User extends Authenticatable
         } else {
             return Storage::disk('public')->url($this->avatar);
         }
+    }
+
+    public function getExperienceAttribute() {
+        return $this->experience_min . ' - ' . $this->experience_max . ' years';
     }
 }

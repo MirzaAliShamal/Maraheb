@@ -19,11 +19,11 @@ class ApproveProfile
     {
         if (Auth::guard($guard)->check()) {
             if ($guard == 'resturant_manager') {
-                if (resturantManager()->payment_status !== 'approved') {
+                if (resturantManager()->profile_status !== 'approved') {
                     return redirect()->route('resturant.manager.complete.profile');
                 }
             } else {
-                if (auth()->user()->payment_status !== 'approved') {
+                if (auth()->user()->profile_status !== 'approved') {
                     return redirect()->route('user.complete.profile');
                 }
             }

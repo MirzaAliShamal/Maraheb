@@ -275,11 +275,10 @@ function validateBtn() {
     let address = $("[name='address']");
     let city = $("[name='city']");
     let zip_code = $("[name='zip_code']");
-    let experience = $("[name='experience']");
     let intro_video = $("[name='intro_video']");
     let upload_cv = $("[name='upload_cv']");
 
-    if (avatar.val().length > 0 && firstName.val().length > 0 && lastName.val().length > 0 && dob.val().length > 0 && gender.val().length > 0 && country.val().length > 0 && specalise.length > 0 && address.val().length && city.val().length > 0 && zip_code.val().length > 0 && experience.val().length > 0 && intro_video.val().length > 0 && upload_cv.val().length > 0) {
+    if (avatar.val().length > 0 && firstName.val().length > 0 && lastName.val().length > 0 && dob.val().length > 0 && gender.val().length > 0 && country.val().length > 0 && specalise.length > 0 && address.val().length && city.val().length > 0 && zip_code.val().length > 0 && intro_video.val().length > 0 && upload_cv.val().length > 0) {
         $("#submitBtn").prop('disabled', false);
     } else {
         $("#submitBtn").prop('disabled', true);

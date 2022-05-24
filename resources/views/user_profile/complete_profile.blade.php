@@ -77,8 +77,20 @@
                                             <input type="text" id="zip_code" name="zip_code" value="" onkeyup="validateBtn()" placeholder="12345" autocomplete="off">
                                         </div>
                                         <div class="form-group col-lg-6 col-md-12">
-                                            <label for="experience">Experience *</label>
-                                            <input type="text" id="experience" name="experience" value="" onkeyup="validateBtn()" placeholder="5-10 Years" autocomplete="off">
+                                            <label for="experience">Experience <small>(In years)</small> *</label>
+                                            <div class="range-slider-one experience-range">
+                                                <div class="experience-range-slider"></div>
+                                                <div class="input-outer">
+                                                    <div class="amount-outer">
+                                                        <span class="amount experience-amount">
+                                                            <span class="min">0</span> years -
+                                                            <span class="max">0</span> years
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <input type="hidden" name="experience_min" value="">
+                                            <input type="hidden" name="experience_max" value="">
                                         </div>
                                         <div class="form-group col-lg-6 col-md-12">
                                             <label for="experience">Specalise in *</label>

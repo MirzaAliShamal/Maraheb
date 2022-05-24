@@ -20,6 +20,7 @@ class RouteServiceProvider extends ServiceProvider
     public const HOME = '/';
     public const USER = '/user/dashboard';
     public const RESTURANT = '/resturant-manager/dashboard';
+    public const PURCHASE = '/purchase-manager/dashboard';
     public const ADMIN = '/admin/dashboard';
 
     /**
@@ -53,6 +54,11 @@ class RouteServiceProvider extends ServiceProvider
                 ->prefix('resturant-manager')
                 ->name('resturant.manager.')
                 ->group(base_path('routes/resturant.php'));
+
+            Route::middleware('web')
+                ->prefix('purchase-manager')
+                ->name('purchase.manager.')
+                ->group(base_path('routes/purchase.php'));
         });
     }
 

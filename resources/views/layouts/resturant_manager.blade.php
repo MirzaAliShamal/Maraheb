@@ -8,9 +8,28 @@
     <title>@yield('title') - Maraheb</title>
 
     <!-- Stylesheets -->
+    <link href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css" rel="stylesheet">
     <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('css/responsive.css') }}" rel="stylesheet">
+
+    <link href="{{ asset('css/prism.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/intlTelInput.css') }}" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
+    <style>
+        .iti {
+            display: block;
+        }
+        input[type='tel'] {
+            padding-left: 52px !important;
+        }
+        #toast-container > .toast-success {
+            opacity: 1 !important;
+        }
+        #toast-container > .toast-error {
+            opacity: 1 !important;
+        }
+    </style>
 
     <link rel="shortcut icon" href="{{ asset('images/favicon.png') }}" type="image/x-icon">
     <link rel="icon" href="{{ asset('images/favicon.png') }}" type="image/x-icon">
@@ -20,6 +39,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <!--[if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script><![endif]-->
     <!--[if lt IE 9]><script src="js/respond.js"></script><![endif]-->
+
+    @yield('css')
 </head>
 <body>
 
@@ -55,6 +76,9 @@
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('js/jquery.fancybox.js') }}"></script>
     <script src="{{ asset('js/jquery.modal.min.js') }}"></script>
+    <script src="{{ asset('js/prism.js') }}"></script>
+    <script src="{{ asset('js/intlTelInput.js') }}"></script>
+    <script src="{{ asset('js/jquery.validate.min.js') }}"></script>
     <script src="{{ asset('js/mmenu.polyfills.js') }}"></script>
     <script src="{{ asset('js/mmenu.js') }}"></script>
     <script src="{{ asset('js/appear.js') }}"></script>
@@ -63,7 +87,23 @@
     <script src="{{ asset('js/rellax.min.js') }}"></script>
     <script src="{{ asset('js/owl.js') }}"></script>
     <script src="{{ asset('js/wow.js') }}"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script src="{{ asset('js/script.js') }}"></script>
 
     <script src="{{ asset('js/chart.min.js') }}"></script>
+
+    @if (Session::has('success'))
+        <script>
+            toastr.success("{{ session('success') }}", 'Maraheb Says')
+        </script>
+    @endif
+    @if (Session::has('error'))
+        <script>
+            toastr.error("{{ session('error') }}", 'Maraheb Says')
+        </script>
+    @endif
+
+    @yield('js')
 </body>

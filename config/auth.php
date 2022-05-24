@@ -54,6 +54,11 @@ return [
         'resturant_manager' => [
             'driver' => 'session',
             'provider' => 'resturant_managers',
+        ],
+
+        'purchase_manager' => [
+            'driver' => 'session',
+            'provider' => 'purchase_managers',
         ]
     ],
 
@@ -88,6 +93,11 @@ return [
         'resturant_managers' => [
             'driver' => 'eloquent',
             'model' => App\Models\ResturantManager::class,
+        ],
+
+        'purchase_managers' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\PurchaseManager::class,
         ],
 
         // 'users' => [

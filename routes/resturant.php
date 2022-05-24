@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ResturantManager\ProfileController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\ResturantManager\DashboardController;
+use App\Http\Controllers\ResturantManager\PurchaseManagerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +29,19 @@ Route::controller(ProfileController::class)->middleware('auth:resturant_manager'
     Route::post('/destroy-attachment', 'destroyAttachment')->name('destroy.attachment');
 });
 
-Route::controller(DashboardController::class)->middleware('auth:resturant_manager', 'mobile.verify:resturant_manager', 'approve.profile:resturant_manager')->group(function () {
-    Route::get('/dashboard', 'dashboard')->name('dashboard');
+Route::middleware('auth:resturant_manager', 'email.verify:resturant_manager', 'approve.profile:resturant_manager')->group(function () {
+    Route::controller(DashboardController::class)->group(function () {
+        Route::get('/dashboard', 'dashboard')->name('dashboard');
+    });
+
+    Route::prefix('purchase-manager')->name('purchase.manager.')->controller(PurchaseManagerController::class)->group(function () {
+        Route::get('/list', 'list')->name('list');
+        Route::get('/add', 'add')->name('add');
+        Route::get('/edit/{id?}', 'edit')->name('edit');
+        Route::post('/save/{id?}', 'save')->name('save');
+        Route::get('/delete/{id?}', 'delete')->name('delete');
+        Route::get('/status/{id?}', 'status')->name('status');
+    });
 });
+
+

@@ -2,43 +2,30 @@
 
 namespace App\Models;
 
-use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable
+class PurchaseManager extends Model
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasFactory, Notifiable;
 
+    protected $guard = 'purchase_manager';
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
     protected $fillable = [
+        'resturant_manager_id',
         'avatar',
         'first_name',
         'last_name',
         'email',
         'mobile_no',
-        'is_email_verified',
         'password',
-        'age',
-        'dob',
-        'gender',
-        'address',
-        'country',
-        'city',
-        'zip_code',
-        'experience_min',
-        'experience_max',
-        'specalise',
-        'intro_video',
-        'cv',
-        'profile_status',
         'visibility_status',
     ];
 
@@ -75,11 +62,7 @@ class User extends Authenticatable
         }
     }
 
-    public function getExperienceAttribute() {
-        return $this->experience_min . ' - ' . $this->experience_max . ' years';
-    }
-
-    public function verifyUser() {
-        return $this->hasOne(VerifyUser::class);
+    public function resturantManager() {
+        return $this->belongsTo(ResturantManager::class);
     }
 }

@@ -25,6 +25,6 @@ Route::controller(ProfileController::class)->middleware('auth')->group(function 
     Route::post('/destroy-attachment', 'destroyAttachment')->name('destroy.attachment');
 });
 
-Route::controller(DashboardController::class)->middleware('auth', 'mobile.verify', 'approve.profile')->group(function () {
+Route::controller(DashboardController::class)->middleware('auth', 'email.verify', 'approve.profile')->group(function () {
     Route::get('/dashboard', 'dashboard')->name('dashboard');
 });

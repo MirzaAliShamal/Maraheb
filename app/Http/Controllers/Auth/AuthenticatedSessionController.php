@@ -36,7 +36,7 @@ class AuthenticatedSessionController extends Controller
             return redirect()->intended(RouteServiceProvider::USER);
         }
 
-        if ($request->role === 'resturant_manager') {
+        if ($request->role === 'resturant') {
             return redirect()->intended(RouteServiceProvider::RESTURANT);
         }
     }

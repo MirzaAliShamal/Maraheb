@@ -57,7 +57,6 @@ class ResturantManager extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'specalise' => 'array'
     ];
 
     public function getNameAttribute() {
@@ -71,5 +70,13 @@ class ResturantManager extends Authenticatable
         } else {
             return Storage::disk('public')->url($this->avatar);
         }
+    }
+
+    public function verifyResturantManager() {
+        return $this->hasOne(VerifyResturantManager::class);
+    }
+
+    public function purchaseManager() {
+        return $this->hasMany(PurchaseManager::class);
     }
 }

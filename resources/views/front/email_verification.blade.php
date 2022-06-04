@@ -3,7 +3,7 @@
 @section('title', 'Verify Email')
 
 @section('content')
-<section class="banner-section" style="min-height: 100vh">
+<section class="banner-section profile-banner-section" style="min-height: 100vh">
     <div class="auto-container">
         <div class="row justify-content-center">
             <div class="content-column col-lg-6 col-md-12 col-sm-12 text-center">

@@ -32,10 +32,6 @@ class ResturantManager extends Authenticatable
         'country',
         'city',
         'zip_code',
-        'resturant_logo',
-        'resturant_name',
-        'resturant_address',
-        'resturant_trade_license',
         'profile_status',
         'visibility_status',
     ];
@@ -74,6 +70,10 @@ class ResturantManager extends Authenticatable
 
     public function verifyResturantManager() {
         return $this->hasOne(VerifyResturantManager::class);
+    }
+
+    public function resturant() {
+        return $this->hasOne(Resturant::class);
     }
 
     public function purchaseManager() {

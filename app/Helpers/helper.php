@@ -1,6 +1,8 @@
 <?php
 
+use App\Models\Hotel;
 use App\Models\Country;
+use App\Models\Department;
 
 
 function admin() {
@@ -38,4 +40,12 @@ function hidePhone($val) {
 
 function countries() {
     return Country::orderBy('name', 'ASC')->get();
+}
+
+function hotels() {
+    return Hotel::whereStatus(true)->orderBy('name', 'ASC')->get();
+}
+
+function departments() {
+    return Department::whereStatus(true)->orderBy('name', 'ASC')->get();
 }

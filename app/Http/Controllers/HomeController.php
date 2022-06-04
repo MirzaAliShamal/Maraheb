@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use App\Models\VerifyResturantManager;
+use App\Mail\General\VerificationEmail;
 
 class HomeController extends Controller
 {
@@ -107,10 +108,10 @@ class HomeController extends Controller
             $token = $user->verifyUser->token;
 
             if (!is_null($token)) {
-                Mail::send('email.general.verify_email', get_defined_vars(), function ($message) use($user) {
-                    $message->to($user->email, $user->name);
-                    $message->subject('Verify you Email Address');
-                });
+
+                $data['token'] = $token;
+                $email = new VerificationEmail($data);
+                Mail::to($user->email)->send($email);
 
                 return redirect()->back();
             } else {

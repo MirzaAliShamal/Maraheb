@@ -1,8 +1,4 @@
 (function($) {
-
-    const baseUrl = $('meta[name="baseUrl"]'). attr("content");
-    const csrf_token = $('meta[name="csrfToken"]'). attr("content");
-
     var table = $('.server-datatables').DataTable({
         "order": [[ 0, "desc" ]],
         "sort": true,

@@ -3,8 +3,20 @@
 @section('title', 'Resturant Manager Profile')
 @section('page-heading', 'Resturant Manager Profile')
 
-@section('css')
-    <link href="https://cdn.jsdelivr.net/npm/mediaelement@4.2.16/build/mediaelementplayer.min.css" rel="stylesheet">
+@section('breadcrumb')
+    <!--begin::Item-->
+    <li class="breadcrumb-item text-muted">
+        <a href="{{ route('admin.dashboard') }}" class="text-muted text-hover-primary">Dashboard</a>
+    </li>
+    <!--end::Item-->
+    <!--begin::Item-->
+    <li class="breadcrumb-item">
+        <span class="bullet bg-gray-200 w-5px h-2px"></span>
+    </li>
+    <!--end::Item-->
+    <!--begin::Item-->
+    <li class="breadcrumb-item text-dark">Profile Details</li>
+    <!--end::Item-->
 @endsection
 
 @section('content')
@@ -137,154 +149,209 @@
             <!--end::Info-->
         </div>
         <!--end::Details-->
-    </div>
-</div>
-
-<div class="card mb-5 mb-xl-10">
-    <div class="card-header">
-        <div class="card-title m-0">
-            <h3 class="fw-bolder m-0">Personal Details</h3>
-        </div>
-    </div>
-    <div class="card-body p-9">
-        <div class="row mb-7">
-            <!--begin::Label-->
-            <label class="col-lg-4 fw-bold text-muted">Full Name</label>
-            <!--end::Label-->
-            <!--begin::Col-->
-            <div class="col-lg-8">
-                <span class="fw-bolder fs-6 text-gray-800">{{ $resturant_manager->name }}</span>
-            </div>
-            <!--end::Col-->
-        </div>
-        <div class="row mb-7">
-            <!--begin::Label-->
-            <label class="col-lg-4 fw-bold text-muted">Mobile No</label>
-            <!--end::Label-->
-            <!--begin::Col-->
-            <div class="col-lg-8 d-flex align-items-center">
-                <span class="fw-bolder fs-6 text-gray-800 me-2">{{ $resturant_manager->mobile_no }}</span>
-                @if ($resturant_manager->is_mobile_verified)
-                    <span class="badge badge-success">Verified</span>
-                @endif
-            </div>
-            <!--end::Col-->
-        </div>
-        <div class="row mb-7">
-            <!--begin::Label-->
-            <label class="col-lg-4 fw-bold text-muted">Date of Birth</label>
-            <!--end::Label-->
-            <!--begin::Col-->
-            <div class="col-lg-8">
-                <span class="fw-bolder fs-6 text-gray-800">{{ $resturant_manager->dob }}</span>
-            </div>
-            <!--end::Col-->
-        </div>
-        <div class="row mb-7">
-            <!--begin::Label-->
-            <label class="col-lg-4 fw-bold text-muted">Gender</label>
-            <!--end::Label-->
-            <!--begin::Col-->
-            <div class="col-lg-8">
-                <span class="fw-bolder fs-6 text-gray-800">{{ $resturant_manager->gender }}</span>
-            </div>
-            <!--end::Col-->
-        </div>
-        <div class="row mb-7">
-            <!--begin::Label-->
-            <label class="col-lg-4 fw-bold text-muted">Country</label>
-            <!--end::Label-->
-            <!--begin::Col-->
-            <div class="col-lg-8">
-                <span class="fw-bolder fs-6 text-gray-800">{{ $resturant_manager->country }}</span>
-            </div>
-            <!--end::Col-->
-        </div>
-        <div class="row mb-7">
-            <!--begin::Label-->
-            <label class="col-lg-4 fw-bold text-muted">City</label>
-            <!--end::Label-->
-            <!--begin::Col-->
-            <div class="col-lg-8">
-                <span class="fw-bolder fs-6 text-gray-800">{{ $resturant_manager->city }}</span>
-            </div>
-            <!--end::Col-->
-        </div>
-        <div class="row mb-7">
-            <!--begin::Label-->
-            <label class="col-lg-4 fw-bold text-muted">Zip/Postal Code</label>
-            <!--end::Label-->
-            <!--begin::Col-->
-            <div class="col-lg-8">
-                <span class="fw-bolder fs-6 text-gray-800">{{ $resturant_manager->zip_code }}</span>
-            </div>
-            <!--end::Col-->
-        </div>
-        <div class="row mb-7">
-            <!--begin::Label-->
-            <label class="col-lg-4 fw-bold text-muted">Address</label>
-            <!--end::Label-->
-            <!--begin::Col-->
-            <div class="col-lg-8">
-                <span class="fw-bolder fs-6 text-gray-800">{{ $resturant_manager->address }}</span>
-            </div>
-            <!--end::Col-->
+        <div class="d-flex overflow-auto h-55px">
+            <ul class="nav nav-stretch nav-line-tabs nav-line-tabs-2x border-transparent fs-5 fw-bolder flex-nowrap">
+                <!--begin::Nav item-->
+                <li class="nav-item">
+                    <a class="nav-link text-active-primary me-6 active" data-bs-toggle="tab" href="#personal">Personal Details</a>
+                </li>
+                <!--end::Nav item-->
+                <!--begin::Nav item-->
+                <li class="nav-item">
+                    <a class="nav-link text-active-primary me-6" data-bs-toggle="tab" href="#resturant">Resturant Details</a>
+                </li>
+                <!--end::Nav item-->
+            </ul>
         </div>
     </div>
 </div>
 
-<div class="card mb-5 mb-xl-10">
-    <div class="card-header">
-        <div class="card-title m-0">
-            <h3 class="fw-bolder m-0">Resturant Details</h3>
+<div class="tab-content">
+    <div class="card mb-5 mb-xl-10 tab-pane fade show active" id="personal" role="tabpanel">
+        <div class="card-header">
+            <div class="card-title m-0">
+                <h3 class="fw-bolder m-0">Personal Details</h3>
+            </div>
+
+            <a href="{{ route('admin.resturant.manager.edit', $resturant_manager->id) }}" class="btn btn-primary align-self-center">Edit Profile</a>
+        </div>
+        <div class="card-body p-9">
+            <div class="row mb-7">
+                <!--begin::Label-->
+                <label class="col-lg-4 fw-bold text-muted">Full Name</label>
+                <!--end::Label-->
+                <!--begin::Col-->
+                <div class="col-lg-8">
+                    <span class="fw-bolder fs-6 text-gray-800">{{ $resturant_manager->name }}</span>
+                </div>
+                <!--end::Col-->
+            </div>
+            <div class="row mb-7">
+                <!--begin::Label-->
+                <label class="col-lg-4 fw-bold text-muted">Mobile No</label>
+                <!--end::Label-->
+                <!--begin::Col-->
+                <div class="col-lg-8 d-flex align-items-center">
+                    <span class="fw-bolder fs-6 text-gray-800 me-2">{{ $resturant_manager->mobile_no }}</span>
+                    @if ($resturant_manager->is_mobile_verified)
+                        <span class="badge badge-success">Verified</span>
+                    @endif
+                </div>
+                <!--end::Col-->
+            </div>
+            <div class="row mb-7">
+                <!--begin::Label-->
+                <label class="col-lg-4 fw-bold text-muted">Date of Birth</label>
+                <!--end::Label-->
+                <!--begin::Col-->
+                <div class="col-lg-8">
+                    <span class="fw-bolder fs-6 text-gray-800">{{ $resturant_manager->dob }}</span>
+                </div>
+                <!--end::Col-->
+            </div>
+            <div class="row mb-7">
+                <!--begin::Label-->
+                <label class="col-lg-4 fw-bold text-muted">Gender</label>
+                <!--end::Label-->
+                <!--begin::Col-->
+                <div class="col-lg-8">
+                    <span class="fw-bolder fs-6 text-gray-800">{{ $resturant_manager->gender }}</span>
+                </div>
+                <!--end::Col-->
+            </div>
+            <div class="row mb-7">
+                <!--begin::Label-->
+                <label class="col-lg-4 fw-bold text-muted">Country</label>
+                <!--end::Label-->
+                <!--begin::Col-->
+                <div class="col-lg-8">
+                    <span class="fw-bolder fs-6 text-gray-800">{{ $resturant_manager->country }}</span>
+                </div>
+                <!--end::Col-->
+            </div>
+            <div class="row mb-7">
+                <!--begin::Label-->
+                <label class="col-lg-4 fw-bold text-muted">City</label>
+                <!--end::Label-->
+                <!--begin::Col-->
+                <div class="col-lg-8">
+                    <span class="fw-bolder fs-6 text-gray-800">{{ $resturant_manager->city }}</span>
+                </div>
+                <!--end::Col-->
+            </div>
+            <div class="row mb-7">
+                <!--begin::Label-->
+                <label class="col-lg-4 fw-bold text-muted">Zip/Postal Code</label>
+                <!--end::Label-->
+                <!--begin::Col-->
+                <div class="col-lg-8">
+                    <span class="fw-bolder fs-6 text-gray-800">{{ $resturant_manager->zip_code }}</span>
+                </div>
+                <!--end::Col-->
+            </div>
+            <div class="row mb-7">
+                <!--begin::Label-->
+                <label class="col-lg-4 fw-bold text-muted">Address</label>
+                <!--end::Label-->
+                <!--begin::Col-->
+                <div class="col-lg-8">
+                    <span class="fw-bolder fs-6 text-gray-800">{{ $resturant_manager->address }}</span>
+                </div>
+                <!--end::Col-->
+            </div>
         </div>
     </div>
 
-    <div class="card-body p-9">
-        <div class="row mb-7">
-            <!--begin::Label-->
-            <label class="col-lg-4 fw-bold text-muted">Resturant Logo</label>
-            <!--end::Label-->
-            <!--begin::Col-->
-            <div class="col-lg-8">
-                <img src="{{ Storage::disk('public')->url($resturant_manager->resturant_logo) }}" width="180px" class="img-fluid" alt="">
+    <div class="card mb-5 mb-xl-10 tab-pane fade" id="resturant" role="tabpanel">
+        <div class="card-header">
+            <div class="card-title m-0">
+                <h3 class="fw-bolder m-0">Resturant Details</h3>
             </div>
-            <!--end::Col-->
+
+            <a href="" class="btn btn-primary align-self-center">Edit Profile</a>
         </div>
-        <div class="row mb-7">
-            <!--begin::Label-->
-            <label class="col-lg-4 fw-bold text-muted">Resturant Name</label>
-            <!--end::Label-->
-            <!--begin::Col-->
-            <div class="col-lg-8">
-                <span class="fw-bolder fs-6 text-gray-800">{{ $resturant_manager->resturant_name }}</span>
+
+        <div class="card-body p-9">
+            <div class="row mb-7">
+                <!--begin::Label-->
+                <label class="col-lg-4 fw-bold text-muted">Logo</label>
+                <!--end::Label-->
+                <!--begin::Col-->
+                <div class="col-lg-8">
+                    <img src="{{ Storage::disk('public')->url($resturant_manager->resturant->logo) }}" width="180px" class="img-fluid" alt="">
+                </div>
+                <!--end::Col-->
             </div>
-            <!--end::Col-->
-        </div>
-        <div class="row mb-7">
-            <!--begin::Label-->
-            <label class="col-lg-4 fw-bold text-muted">Resturant Trade License</label>
-            <!--end::Label-->
-            <!--begin::Col-->
-            <div class="col-lg-8">
-                <span class="fw-bolder fs-6 text-gray-800">{{ $resturant_manager->resturant_trade_license }}</span>
+            <div class="row mb-7">
+                <!--begin::Label-->
+                <label class="col-lg-4 fw-bold text-muted">Hotel</label>
+                <!--end::Label-->
+                <!--begin::Col-->
+                <div class="col-lg-8">
+                    <span class="fw-bolder fs-6 text-gray-800">{{ $resturant_manager->resturant->hotel->name }}</span>
+                </div>
+                <!--end::Col-->
             </div>
-            <!--end::Col-->
-        </div>
-        <div class="row mb-7">
-            <!--begin::Label-->
-            <label class="col-lg-4 fw-bold text-muted">Resturant Address</label>
-            <!--end::Label-->
-            <!--begin::Col-->
-            <div class="col-lg-8">
-                <span class="fw-bolder fs-6 text-gray-800">{{ $resturant_manager->resturant_address }}</span>
+            <div class="row mb-7">
+                <!--begin::Label-->
+                <label class="col-lg-4 fw-bold text-muted">Name</label>
+                <!--end::Label-->
+                <!--begin::Col-->
+                <div class="col-lg-8">
+                    <span class="fw-bolder fs-6 text-gray-800">{{ $resturant_manager->resturant->name }}</span>
+                </div>
+                <!--end::Col-->
             </div>
-            <!--end::Col-->
+            <div class="row mb-7">
+                <!--begin::Label-->
+                <label class="col-lg-4 fw-bold text-muted">Trade License</label>
+                <!--end::Label-->
+                <!--begin::Col-->
+                <div class="col-lg-8">
+                    <span class="fw-bolder fs-6 text-gray-800">{{ $resturant_manager->resturant->trade_license }}</span>
+                </div>
+                <!--end::Col-->
+            </div>
+            <div class="row mb-7">
+                <!--begin::Label-->
+                <label class="col-lg-4 fw-bold text-muted">Address</label>
+                <!--end::Label-->
+                <!--begin::Col-->
+                <div class="col-lg-8">
+                    <span class="fw-bolder fs-6 text-gray-800">{{ $resturant_manager->resturant->address }}</span>
+                </div>
+                <!--end::Col-->
+            </div>
+            <div class="row mb-7">
+                <!--begin::Label-->
+                <label class="col-lg-4 fw-bold text-muted">No of Departments</label>
+                <!--end::Label-->
+                <!--begin::Col-->
+                <div class="col-lg-8">
+                    <span class="fw-bolder fs-6 text-gray-800">{{ $resturant_manager->resturant->no_of_dept }}</span>
+                </div>
+                <!--end::Col-->
+            </div>
+            <div class="row mb-7">
+                <!--begin::Label-->
+                <label class="col-lg-4 fw-bold text-muted">Departments</label>
+                <!--end::Label-->
+                <!--begin::Col-->
+                <div class="col-lg-8">
+                    <ul class="ps-0 ms-0">
+                        @foreach ($resturant_manager->resturant->resturantDepartments as $item)
+                            <li><span class="fw-bolder fs-6 text-gray-800">{{ $item->department->name }} (Hourly Rate: ${{ $item->rate }})</span></li>
+                        @endforeach
+                    </ul>
+                </div>
+                <!--end::Col-->
+            </div>
         </div>
     </div>
 </div>
+
+
 @endsection
 @section('js')
-    <script src="https://cdn.jsdelivr.net/npm/mediaelement@4.2.16/build/mediaelement-and-player.min.js"></script>
     <script src="{{ asset('assets/js/resturant_manager/profile.js') }}"></script>
 @endsection

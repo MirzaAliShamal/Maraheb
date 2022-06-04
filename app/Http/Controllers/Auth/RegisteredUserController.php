@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use App\Models\VerifyResturantManager;
 use Illuminate\Auth\Events\Registered;
+use App\Mail\General\VerificationEmail;
 use App\Providers\RouteServiceProvider;
 
 class RegisteredUserController extends Controller
@@ -81,10 +82,9 @@ class RegisteredUserController extends Controller
                     'token' => $token,
                 ]);
 
-                Mail::send('email.general.verify_email', get_defined_vars(), function ($message) use($user) {
-                    $message->to($user->email, $user->name);
-                    $message->subject('Verify you Email Address');
-                });
+                $data['token'] = $token;
+                $email = new VerificationEmail($data);
+                Mail::to($user->email)->send($email);
 
                 return redirect(RouteServiceProvider::USER);
 
@@ -108,16 +108,16 @@ class RegisteredUserController extends Controller
                     'token' => $token,
                 ]);
 
-                Mail::send('email.general.verify_email', get_defined_vars(), function ($message) use($resturant_manager) {
-                    $message->to($resturant_manager->email, $resturant_manager->name);
-                    $message->subject('Verify you Email Address');
-                });
+                $data['token'] = $token;
+                $email = new VerificationEmail($data);
+                Mail::to($resturant_manager->email)->send($email);
 
                 return redirect(RouteServiceProvider::RESTURANT);
             } else {
                 return redirect()->back();
             }
         } catch (\Exception $e) {
+            dd($e->getMessage());
             return redirect()->back()->with('error', $e->getMessage());
         }
     }

@@ -2,8 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\HotelController;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\DepartmentController;
 use App\Http\Controllers\Admin\ResturantManagerController;
 
 /*
@@ -44,7 +46,26 @@ Route::middleware('auth:admin')->group(function () {
         Route::get('/pending', 'pending')->name('pending');
         Route::get('/new-profile-requests', 'submitted')->name('submitted');
         Route::get('/profile/{id?}', 'profile')->name('profile');
+        Route::get('/profile/{id?}/edit', 'edit')->name('edit');
         Route::get('/profile-status/{id?}', 'profileStatus')->name('profile.status');
+        Route::get('/delete/{id?}', 'delete')->name('delete');
+        Route::get('/status/{id?}', 'status')->name('status');
+    });
+
+    Route::prefix('hotel')->name('hotel.')->controller(HotelController::class)->group(function () {
+        Route::get('/list', 'list')->name('list');
+        Route::get('/add', 'add')->name('add');
+        Route::get('/edit/{id?}', 'edit')->name('edit');
+        Route::post('/save/{id?}', 'save')->name('save');
+        Route::get('/delete/{id?}', 'delete')->name('delete');
+        Route::get('/status/{id?}', 'status')->name('status');
+    });
+
+    Route::prefix('department')->name('department.')->controller(DepartmentController::class)->group(function () {
+        Route::get('/list', 'list')->name('list');
+        Route::get('/add', 'add')->name('add');
+        Route::get('/edit/{id?}', 'edit')->name('edit');
+        Route::post('/save/{id?}', 'save')->name('save');
         Route::get('/delete/{id?}', 'delete')->name('delete');
         Route::get('/status/{id?}', 'status')->name('status');
     });

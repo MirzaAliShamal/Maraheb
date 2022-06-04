@@ -103,6 +103,15 @@
                                             </div>
                                             <input type="hidden" name="resturant_logo" class="resturant_logo" value="">
                                         </div>
+                                        <div class="form-group col-lg-12 col-md-12">
+                                            <label for="hotel_id">Select Hotel *</label>
+                                            <select name="hotel_id" id="hotel_id" onchange="validateBtn()" class="chosen-search-select">
+                                                <option value="" disabled selected>Select Hotel</option>
+                                                @foreach (hotels() as $item)
+                                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
                                         <div class="form-group col-lg-6 col-md-12">
                                             <label for="resturant_name">Resturant Name *</label>
                                             <input type="text" id="resturant_name" name="resturant_name" value="" onkeyup="validateBtn()" placeholder="KFC" autocomplete="off">
@@ -111,9 +120,37 @@
                                             <label for="resturant_trade_license">Resturant Trade License *</label>
                                             <input type="text" id="resturant_trade_license" name="resturant_trade_license" value="" onkeyup="validateBtn()" placeholder="123456" autocomplete="off">
                                         </div>
-                                        <div class="form-group col-lg-12 col-md-12">
+                                        <div class="form-group col-lg-6 col-md-12">
                                             <label for="resturant_address">Resturant Address *</label>
                                             <input type="text" id="resturant_address" name="resturant_address" value="" onkeyup="validateBtn()" placeholder="" autocomplete="off">
+                                        </div>
+                                        <div class="form-group col-lg-6 col-md-12">
+                                            <label for="no_of_dept">No. of Departments *</label>
+                                            <input type="text" id="no_of_dept" name="no_of_dept" value="0" onkeyup="validateBtn()" placeholder="0" autocomplete="off" onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57">
+                                        </div>
+                                        <div class="form-group col-lg-12 col-md-12">
+                                            <label for="resturant_depts">Select Departments *</label>
+
+                                            <div class="checkbox-outer">
+                                                <ul class="row checkboxes square">
+                                                    @foreach (departments() as $item)
+                                                        <li class="col-lg-6 col-md-6 col-sm-12 col-12 mx-0">
+                                                            <div class="row">
+                                                                <div class="col-6">
+                                                                    <input id="check-{{ $loop->iteration }}" type="checkbox" name="resturant_depts[{{ $loop->iteration }}]" value="{{ $item->id }}" class="resturant-depts">
+                                                                    <label for="check-{{ $loop->iteration }}">{{ $item->name }}</label>
+                                                                </div>
+                                                                <div class="col-6">
+                                                                    <div class="hourly-rate position-relative" style="display: none;">
+                                                                        <span class="currency-prefix">$</span>
+                                                                        <input type="text" name="hourly_rate[{{ $loop->iteration }}]" id="hourly-{{ $loop->iteration }}" class="hourly-rate-input" placeholder="Hourly Rate">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                    @endforeach
+                                                </ul>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

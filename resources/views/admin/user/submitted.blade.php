@@ -3,6 +3,22 @@
 @section('title', 'Users')
 @section('page-heading', 'Users')
 
+@section('breadcrumb')
+    <!--begin::Item-->
+    <li class="breadcrumb-item text-muted">
+        <a href="{{ route('admin.dashboard') }}" class="text-muted text-hover-primary">Dashboard</a>
+    </li>
+    <!--end::Item-->
+    <!--begin::Item-->
+    <li class="breadcrumb-item">
+        <span class="bullet bg-gray-200 w-5px h-2px"></span>
+    </li>
+    <!--end::Item-->
+    <!--begin::Item-->
+    <li class="breadcrumb-item text-dark">New Profile Requests</li>
+    <!--end::Item-->
+@endsection
+
 @section('content')
 <div class="card">
     <div class="card-header border-0 pt-6 mb-5">

@@ -1,3 +1,6 @@
+const baseUrl = $('meta[name="baseUrl"]'). attr("content");
+const csrf_token = $('meta[name="csrfToken"]'). attr("content");
+
 const Toast = Swal.mixin({
     toast: true,
     position: 'top-end',

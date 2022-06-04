@@ -3,6 +3,22 @@
 @section('title', 'User Profile')
 @section('page-heading', 'User Profile')
 
+@section('breadcrumb')
+    <!--begin::Item-->
+    <li class="breadcrumb-item text-muted">
+        <a href="{{ route('admin.dashboard') }}" class="text-muted text-hover-primary">Dashboard</a>
+    </li>
+    <!--end::Item-->
+    <!--begin::Item-->
+    <li class="breadcrumb-item">
+        <span class="bullet bg-gray-200 w-5px h-2px"></span>
+    </li>
+    <!--end::Item-->
+    <!--begin::Item-->
+    <li class="breadcrumb-item text-dark">Profile Details</li>
+    <!--end::Item-->
+@endsection
+
 @section('css')
     <link href="https://cdn.jsdelivr.net/npm/mediaelement@4.2.16/build/mediaelementplayer.min.css" rel="stylesheet">
 @endsection

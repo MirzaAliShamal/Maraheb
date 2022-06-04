@@ -77,8 +77,15 @@
 									<!--begin::Title-->
 									<h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">@yield('page-heading')</h1>
 									<!--end::Title-->
+
 								</div>
 								<!--end::Page title-->
+
+                                <div class="d-flex align-items-center py-1">
+									<ul class="breadcrumb breadcrumb-separatorless fw-bold fs-7 my-1 ms-0">
+                                        @yield('breadcrumb')
+									</ul>
+								</div>
 							</div>
 							<!--end::Container-->
 						</div>

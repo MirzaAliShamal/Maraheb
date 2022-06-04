@@ -11,7 +11,7 @@ class ResturantManagerController extends Controller
 {
     public function submitted(Request $req)
     {
-        $list = ResturantManager::where('profile_status', 'submitted')->orderBy("id", "DESC");
+        $list = ResturantManager::with('resturant')->where('profile_status', 'submitted')->orderBy("id", "DESC");
 
         if ($req->ajax()) {
             return Datatables::of($list)
@@ -21,6 +21,9 @@ class ResturantManagerController extends Controller
                 ->filterColumn('name', function ($query, $keyword) {
                     $keywords = trim($keyword);
                     $query->whereRaw("CONCAT(first_name, last_name) like ?", ["%{$keywords}%"]);
+                })
+                ->addColumn('resturant_name', function($row) {
+                    return $row->resturant->name;
                 })
                 ->editColumn('profile_status', function($row) {
                     $html = '';
@@ -278,12 +281,24 @@ class ResturantManagerController extends Controller
 
     public function profile($id = null)
     {
-        $resturant_manager = ResturantManager::find($id);
+        $resturant_manager = ResturantManager::with('resturant', 'resturant.hotel', 'resturant.resturantDepartments', 'resturant.resturantDepartments.department')->find($id);
+
         if ($resturant_manager->profile_status == 'pending') {
             return redirect()->back();
         }
 
         return view('admin.resturant_manager.profile', get_defined_vars());
+    }
+
+    public function edit($id = null)
+    {
+        $resturant_manager = ResturantManager::with('resturant', 'resturant.hotel', 'resturant.resturantDepartments', 'resturant.resturantDepartments.department')->find($id);
+
+        if ($resturant_manager->profile_status == 'pending') {
+            return redirect()->back();
+        }
+
+        return view('admin.resturant_manager.edit', get_defined_vars());
     }
 
     public function profileStatus(Request $req, $id = null)

@@ -792,6 +792,15 @@
 		});
 	}
 
+	//Chosen Select Multiple Max
+	if($('.chosen-select-multiple').length){
+        let maxSelected = $(".chosen-select-multiple").data('max-selected');
+		$(".chosen-select-multiple").chosen({
+			width:'100%',
+            max_selected_options: maxSelected,
+		});
+	}
+
 	// Custom Select Box
 	if ($('.sortby-select').length) {
     	$('.sortby-select').select2();

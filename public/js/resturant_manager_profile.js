@@ -188,11 +188,13 @@ function validateBtn() {
     let city = $("[name='city']");
     let zip_code = $("[name='zip_code']");
     let resturant_logo = $("[name='resturant_logo']");
+    let hotel = $("[name='hotel_id'] option:selected");
     let resturant_name = $("[name='resturant_name']");
     let resturant_address = $("[name='resturant_address']");
     let resturant_trade_license = $("[name='resturant_trade_license']");
+    let no_of_dept = $("[name='no_of_dept']");
 
-    if (avatar.val().length > 0 && firstName.val().length > 0 && lastName.val().length > 0 && dob.val().length > 0 && gender.val().length > 0 && country.val().length > 0 && address.val().length && city.val().length > 0 && zip_code.val().length > 0 && resturant_logo.val().length > 0 && resturant_name.val().length > 0 && resturant_address.val().length > 0 && resturant_trade_license.val().length > 0) {
+    if (avatar.val().length > 0 && firstName.val().length > 0 && lastName.val().length > 0 && dob.val().length > 0 && gender.val().length > 0 && country.val().length > 0 && address.val().length && city.val().length > 0 && zip_code.val().length > 0 && resturant_logo.val().length > 0 && hotel.val().length > 0 && resturant_name.val().length > 0 && resturant_address.val().length > 0 && resturant_trade_license.val().length > 0 && no_of_dept.val().length > 0) {
         $("#submitBtn").prop('disabled', false);
     } else {
         $("#submitBtn").prop('disabled', true);
@@ -210,10 +212,29 @@ function validateBtn() {
             address: "required",
             city: "required",
             zip_code: "required",
+            hotel_id: "required",
             resturant_name: "required",
             resturant_address: "required",
             resturant_trade_license: "required",
         },
+    });
+
+    $("[name='no_of_dept']").blur(function (e) {
+        let elm = $(this);
+
+        if (elm.val().length == 0) {
+            elm.val('0');
+        }
+    });
+
+    $(".resturant-depts").change(function (e) {
+        e.preventDefault();
+        let elm = $(this);
+        if (elm.is(":checked")) {
+            elm.closest('.row').find('.hourly-rate').show();
+        } else {
+            elm.closest('.row').find('.hourly-rate').hide();
+        }
     });
 
     $("#submitBtn").click(function (e) {

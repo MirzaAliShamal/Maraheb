@@ -59,7 +59,6 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'specalise' => 'array'
     ];
 
     public function getNameAttribute() {
@@ -81,5 +80,9 @@ class User extends Authenticatable
 
     public function verifyUser() {
         return $this->hasOne(VerifyUser::class);
+    }
+
+    public function userSpecialises() {
+        return $this->hasMany(UserSpecialise::class);
     }
 }

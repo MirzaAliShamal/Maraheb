@@ -173,7 +173,7 @@
                 <h3 class="fw-bolder m-0">Personal Details</h3>
             </div>
 
-            <a href="{{ route('admin.resturant.manager.edit', $resturant_manager->id) }}" class="btn btn-primary align-self-center">Edit Profile</a>
+            <a href="{{ route('admin.resturant.manager.edit', $resturant_manager->id) }}#personal" class="btn btn-primary align-self-center">Edit Profile</a>
         </div>
         <div class="card-body p-9">
             <div class="row mb-7">
@@ -268,7 +268,7 @@
                 <h3 class="fw-bolder m-0">Resturant Details</h3>
             </div>
 
-            <a href="" class="btn btn-primary align-self-center">Edit Profile</a>
+            <a href="{{ route('admin.resturant.manager.edit', $resturant_manager->id) }}#resturant" class="btn btn-primary align-self-center">Edit Profile</a>
         </div>
 
         <div class="card-body p-9">

@@ -9,6 +9,12 @@
             <div class="content-column col-lg-10 col-md-12 col-sm-12">
                 <div class="inner-column wow fadeInUp" data-wow-delay="1000ms">
                     <h2 class="fw-bold text-center mb-5">Complete your Profile</h2>
+                    @if ($resturant_manager->profile_status == 'rejected')
+                        <div class="message-box error">
+                            <p>Error: Your profile has been rejected, Please try again!</p>
+                            <button class="close-btn"><span class="close_icon"></span></button>
+                        </div>
+                    @endif
                     <form action="{{ route('resturant.manager.profile.save') }}" method="POST" enctype="multipart/form-data" class="default-form" id="applicationForm" data-id="{{ $resturant_manager->id }}">
                         @csrf
                         <div class="ls-widget">

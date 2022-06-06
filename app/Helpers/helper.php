@@ -3,6 +3,7 @@
 use App\Models\Hotel;
 use App\Models\Country;
 use App\Models\Department;
+use App\Models\ResturantDepartment;
 
 
 function admin() {
@@ -48,4 +49,28 @@ function hotels() {
 
 function departments() {
     return Department::whereStatus(true)->orderBy('name', 'ASC')->get();
+}
+
+function checkResturantDepts($resturant, $department) {
+    $exists = ResturantDepartment::where('resturant_id', $resturant)
+        ->where('department_id', $department)
+        ->exists();
+
+    if ($exists) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function checkResturantDeptHourly($resturant, $department) {
+    $res = ResturantDepartment::where('resturant_id', $resturant)
+        ->where('department_id', $department)
+        ->first();
+
+    if (is_null($res)) {
+        return 0;
+    } else {
+        return $res->rate;
+    }
 }

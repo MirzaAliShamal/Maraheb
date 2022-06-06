@@ -101,7 +101,7 @@
                     <!--begin::Actions-->
                     @if ($user->profile_status == 'submitted')
                         <div class="d-flex my-4">
-                            <span class="btn btn-sm me-2 btn-success" data-bs-toggle="modal" data-bs-target="#approveModal">
+                            <a href="{{ route('admin.user.profile.status', $user->id) }}?action=approve" class="btn btn-sm me-2 btn-success delete-item">
                                 <!--begin::Svg Icon | path: icons/duotone/Navigation/Double-check.svg-->
                                 <span class="svg-icon svg-icon-3">
                                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -114,7 +114,7 @@
                                 </span>
                                 <!--end::Svg Icon-->
                                 Approve
-                            </span>
+                            </a>
                             <a href="{{ route('admin.user.profile.status', $user->id) }}?action=reject" class="btn btn-sm btn-primary me-3 delete-item">
                                 Reject
                             </a>
@@ -123,36 +123,6 @@
                     <!--end::Actions-->
                 </div>
                 <!--end::Title-->
-                <!--begin::Stats-->
-                <div class="d-flex flex-wrap flex-stack">
-                    <!--begin::Wrapper-->
-                    <div class="d-flex flex-column flex-grow-1 pe-8">
-                        <!--begin::Stats-->
-                        <div class="d-flex flex-wrap">
-                            <!--begin::Stat-->
-                            <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
-                                <!--begin::Number-->
-                                <div class="d-flex align-items-center">
-                                    <div class="fs-2 fw-bolder">
-                                        @if (is_null($user->rate_per_hour))
-                                            N/A
-                                        @else
-                                            ${{ $user->rate_per_hour }}
-                                        @endif
-                                    </div>
-                                </div>
-                                <!--end::Number-->
-                                <!--begin::Label-->
-                                <div class="fw-bold fs-6 text-gray-400">Rate Per Hour</div>
-                                <!--end::Label-->
-                            </div>
-                            <!--end::Stat-->
-                        </div>
-                        <!--end::Stats-->
-                    </div>
-                    <!--end::Wrapper-->
-                </div>
-                <!--end::Stats-->
             </div>
             <!--end::Info-->
         </div>
@@ -165,6 +135,8 @@
         <div class="card-title m-0">
             <h3 class="fw-bolder m-0">Personal Details</h3>
         </div>
+
+        <a href="{{ route('admin.user.edit', $user->id) }}" class="btn btn-primary align-self-center">Edit Profile</a>
     </div>
     <div class="card-body p-9">
         <div class="row mb-7">
@@ -262,11 +234,15 @@
         </div>
         <div class="row mb-7">
             <!--begin::Label-->
-            <label class="col-lg-4 fw-bold text-muted">Specalise</label>
+            <label class="col-lg-4 fw-bold text-muted">Specialise</label>
             <!--end::Label-->
             <!--begin::Col-->
             <div class="col-lg-8">
-                <span class="fw-bolder fs-6 text-gray-800">{{ implode(", ", $user->specalise) }}</span>
+                <ul class="ps-0 ms-0">
+                    @foreach ($user->userSpecialises as $item)
+                        <li><span class="fw-bolder fs-6 text-gray-800">{{ $item->department->name }}</span></li>
+                    @endforeach
+                </ul>
             </div>
             <!--end::Col-->
         </div>
@@ -307,47 +283,6 @@
     </div>
 </div>
 
-<div class="modal fade" tabindex="-1" id="approveModal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <form action="{{ route('admin.user.profile.status', $user->id) }}" method="GET">
-                <input type="hidden" name="action" value="approve">
-                <div class="modal-header">
-                    <h5 class="modal-title">Set Hourly Rate</h5>
-
-                    <!--begin::Close-->
-                    <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
-                        <span class="svg-icon svg-icon-2x">
-                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                                <g transform="translate(12.000000, 12.000000) rotate(-45.000000) translate(-12.000000, -12.000000) translate(4.000000, 4.000000)" fill="#000000">
-                                    <rect fill="#000000" x="0" y="7" width="16" height="2" rx="1" />
-                                    <rect fill="#000000" opacity="0.5" transform="translate(8.000000, 8.000000) rotate(-270.000000) translate(-8.000000, -8.000000)" x="0" y="7" width="16" height="2" rx="1" />
-                                </g>
-                            </svg>
-                        </span>
-                    </div>
-                    <!--end::Close-->
-                </div>
-
-                <div class="modal-body">
-                    <div class="fv-row mb-7">
-                        <label class="required fw-bold fs-6 mb-2">Hourly Rate</label>
-                        <input type="text" class="form-control form-control-solid"
-                            placeholder="0" name="rate_per_hour"
-                            autocomplete="off" required
-                            onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57"
-                        >
-                    </div>
-                </div>
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-danger">Submit</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
 @endsection
 @section('js')
     <script src="https://cdn.jsdelivr.net/npm/mediaelement@4.2.16/build/mediaelement-and-player.min.js"></script>

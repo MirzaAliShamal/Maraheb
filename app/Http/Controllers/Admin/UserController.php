@@ -3,9 +3,15 @@
 namespace App\Http\Controllers\Admin;
 
 use DataTables;
+use Carbon\Carbon;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Models\UserSpecialise;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\User\RejectedProfileEmail;
+use App\Mail\User\ApprovedProfileEmail;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -277,12 +283,63 @@ class UserController extends Controller
 
     public function profile($id = null)
     {
-        $user = User::find($id);
+        $user = User::with('userSpecialises', 'userSpecialises.department')->find($id);
         if ($user->profile_status == 'pending') {
             return redirect()->back();
         }
 
         return view('admin.user.profile', get_defined_vars());
+    }
+
+    public function edit($id = null)
+    {
+        $user = User::with('userSpecialises', 'userSpecialises.department')->find($id);
+
+        if ($user->profile_status == 'pending') {
+            return redirect()->back();
+        }
+
+        return view('admin.user.edit', get_defined_vars());
+    }
+
+    public function save(Request $req, $id = null)
+    {
+        $user = User::find($id);
+
+        if ($user->profile_status == 'pending') {
+            return redirect()->back();
+        }
+
+        if (isset($req->avatar)) {
+            if (Storage::disk('public')->exists($user->avatar))
+                Storage::disk('public')->delete($user->avatar);
+
+            $user->avatar = $req->avatar->store($user->id.'-user-attachments', 'public');
+        }
+        $user->first_name = $req->first_name;
+        $user->last_name = $req->last_name;
+        $user->age = Carbon::parse($req->dob)->diff(Carbon::now())->y;
+        $user->dob = $req->dob;
+        $user->gender = $req->gender;
+        $user->address = $req->address;
+        $user->country = $req->country;
+        $user->city = $req->city;
+        $user->zip_code = $req->zip_code;
+        $user->experience_min = $req->experience_min;
+        $user->experience_max = $req->experience_max;
+        $user->save();
+
+        $user->userSpecialises()->delete();
+        if (isset($req->specialise)) {
+            for ($i=0; $i < count($req->specialise) ; $i++) {
+                UserSpecialise::create([
+                    'user_id' => $user->id,
+                    'department_id' => $req->specialise[$i],
+                ]);
+            }
+        }
+
+        return redirect()->route('admin.user.profile', $id)->with('success', 'Profile Updated Successfully!');
     }
 
     public function profileStatus(Request $req, $id = null)
@@ -291,13 +348,22 @@ class UserController extends Controller
         $action = $req->action;
 
         if ($action == "reject") {
+
+            $data['user'] = $user;
+            $email = new RejectedProfileEmail($data);
+            Mail::to($user->email)->send($email);
+
             $user->profile_status = 'rejected';
             $user->save();
 
             return redirect()->back()->with('success', 'User Profile Successfully Rejected');
         } else if ($action == "approve") {
+
+            $data['user'] = $user;
+            $email = new ApprovedProfileEmail($data);
+            Mail::to($user->email)->send($email);
+
             $user->profile_status = 'approved';
-            $user->rate_per_hour = $req->rate_per_hour;
             $user->save();
 
             return redirect()->back()->with('success', 'User Profile Successfully Approved');

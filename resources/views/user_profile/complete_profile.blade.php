@@ -93,13 +93,11 @@
                                             <input type="hidden" name="experience_max" value="">
                                         </div>
                                         <div class="form-group col-lg-6 col-md-12">
-                                            <label for="experience">Specalise in *</label>
-                                            <select data-placeholder="Choose a field..." name="specalise[]" onchange="validateBtn()" class="chosen-select" multiple tabindex="4">
-                                                <option value="Banking">Banking</option>
-                                                <option value="Digital & Creative">Digital & Creative</option>
-                                                <option value="Retail">Retail</option>
-                                                <option value="Human Resources">Human Resources</option>
-                                                <option value="Management">Management</option>
+                                            <label for="experience">Specialise in *</label>
+                                            <select data-placeholder="Choose a field..." name="specialise[]" onchange="validateBtn()" class="chosen-select" multiple tabindex="4">
+                                                @foreach (departments() as $item)
+                                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                         <div class="form-group col-lg-12 col-md-12">

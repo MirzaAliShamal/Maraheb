@@ -3,9 +3,15 @@
 namespace App\Http\Controllers\Admin;
 
 use DataTables;
+use Carbon\Carbon;
+use App\Models\Resturant;
 use Illuminate\Http\Request;
 use App\Models\ResturantManager;
+use App\Models\ResturantDepartment;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ResturantManager\ApprovedProfileEmail;
+use App\Mail\ResturantManager\RejectedProfileEmail;
 
 class ResturantManagerController extends Controller
 {
@@ -91,6 +97,9 @@ class ResturantManagerController extends Controller
                     $keywords = trim($keyword);
                     $query->whereRaw("CONCAT(first_name, last_name) like ?", ["%{$keywords}%"]);
                 })
+                ->addColumn('resturant_name', function($row) {
+                    return $row->resturant->name;
+                })
                 ->editColumn('profile_status', function($row) {
                     $html = '';
                     if ($row->profile_status == 'pending') {
@@ -157,6 +166,9 @@ class ResturantManagerController extends Controller
                     $keywords = trim($keyword);
                     $query->whereRaw("CONCAT(first_name, last_name) like ?", ["%{$keywords}%"]);
                 })
+                ->addColumn('resturant_name', function($row) {
+                    return $row->resturant->name;
+                })
                 ->editColumn('profile_status', function($row) {
                     $html = '';
                     if ($row->profile_status == 'pending') {
@@ -222,6 +234,9 @@ class ResturantManagerController extends Controller
                 ->filterColumn('name', function ($query, $keyword) {
                     $keywords = trim($keyword);
                     $query->whereRaw("CONCAT(first_name, last_name) like ?", ["%{$keywords}%"]);
+                })
+                ->addColumn('resturant_name', function($row) {
+                    return $row->resturant->name;
                 })
                 ->editColumn('profile_status', function($row) {
                     $html = '';
@@ -301,17 +316,86 @@ class ResturantManagerController extends Controller
         return view('admin.resturant_manager.edit', get_defined_vars());
     }
 
+    public function save(Request $req, $id = null)
+    {
+        $resturant_manager = ResturantManager::find($id);
+
+        if ($resturant_manager->profile_status == 'pending') {
+            return redirect()->back();
+        }
+
+        if (isset($req->avatar)) {
+            if (Storage::disk('public')->exists($resturant_manager->avatar))
+                Storage::disk('public')->delete($resturant_manager->avatar);
+
+            $resturant_manager->avatar = $req->avatar->store($resturant_manager->id.'-resturant-manager-attachments', 'public');
+        }
+        $resturant_manager->first_name = $req->first_name;
+        $resturant_manager->last_name = $req->last_name;
+        $resturant_manager->age = Carbon::parse($req->dob)->diff(Carbon::now())->y;
+        $resturant_manager->dob = $req->dob;
+        $resturant_manager->gender = $req->gender;
+        $resturant_manager->address = $req->address;
+        $resturant_manager->country = $req->country;
+        $resturant_manager->city = $req->city;
+        $resturant_manager->zip_code = $req->zip_code;
+        $resturant_manager->save();
+
+        $resturant = Resturant::where('resturant_manager_id', $id)->first() ?? new Resturant();
+        $resturant->hotel_id = $req->hotel_id;
+        $resturant->resturant_manager_id = $resturant_manager->id;
+        $resturant->name = $req->resturant_name;
+        if (isset($req->resturant_logo)) {
+            if (Storage::disk('public')->exists($resturant->logo))
+                Storage::disk('public')->delete($resturant->logo);
+
+            $resturant->logo = $req->resturant_logo->store($resturant_manager->id.'-resturant-manager-attachments', 'public');
+        }
+        $resturant->trade_license = $req->resturant_trade_license;
+        $resturant->address = $req->resturant_address;
+        $resturant->no_of_dept = $req->no_of_dept;
+        $resturant->save();
+
+        $resturant->resturantDepartments()->delete();
+        for ($i=1; $i <= count($req->hourly_rate) ; $i++) {
+            if (is_null($req->hourly_rate[$i])) {
+                continue;
+            }
+            if (!isset($req->resturant_depts[$i])) {
+                continue;
+            }
+
+            ResturantDepartment::create([
+                'resturant_id' => $resturant->id,
+                'department_id' => $req->resturant_depts[$i],
+                'rate' => $req->hourly_rate[$i],
+            ]);
+        }
+
+        return redirect()->route('admin.resturant.manager.profile', $id)->with('success', 'Profile Updated Successfully!');
+    }
+
     public function profileStatus(Request $req, $id = null)
     {
         $resturant_manager = ResturantManager::find($id);
         $action = $req->action;
 
         if ($action == "reject") {
+
+            $data['resturant_manager'] = $resturant_manager;
+            $email = new RejectedProfileEmail($data);
+            Mail::to($resturant_manager->email)->send($email);
+
             $resturant_manager->profile_status = 'rejected';
             $resturant_manager->save();
 
             return redirect()->back()->with('success', 'Resturant Manager Profile Successfully Rejected');
         } else if ($action == "approve") {
+
+            $data['resturant_manager'] = $resturant_manager;
+            $email = new ApprovedProfileEmail($data);
+            Mail::to($resturant_manager->email)->send($email);
+
             $resturant_manager->profile_status = 'approved';
             $resturant_manager->save();
 

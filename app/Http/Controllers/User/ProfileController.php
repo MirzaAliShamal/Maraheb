@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Models\UserSpecialise;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 
@@ -36,11 +37,19 @@ class ProfileController extends Controller
         $user->zip_code = $req->zip_code;
         $user->experience_min = $req->experience_min;
         $user->experience_max = $req->experience_max;
-        $user->specalise = $req->specalise;
         $user->intro_video = $req->intro_video;
         $user->cv = $req->upload_cv;
         $user->profile_status = 'submitted';
         $user->save();
+
+        if (isset($req->specialise)) {
+            for ($i=0; $i < count($req->specialise) ; $i++) {
+                UserSpecialise::create([
+                    'user_id' => $user->id,
+                    'department_id' => $req->specialise[$i],
+                ]);
+            }
+        }
 
         return redirect()->route('user.profile.success')->with('success', 'Profile has been successfully submitted for approval');
     }

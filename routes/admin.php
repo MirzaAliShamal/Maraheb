@@ -35,6 +35,8 @@ Route::middleware('auth:admin')->group(function () {
         Route::get('/pending', 'pending')->name('pending');
         Route::get('/new-profile-requests', 'submitted')->name('submitted');
         Route::get('/profile/{id?}', 'profile')->name('profile');
+        Route::get('/profile/{id?}/edit', 'edit')->name('edit');
+        Route::post('/profile/{id?}/save', 'save')->name('save');
         Route::get('/profile-status/{id?}', 'profileStatus')->name('profile.status');
         Route::get('/delete/{id?}', 'delete')->name('delete');
         Route::get('/status/{id?}', 'status')->name('status');
@@ -47,6 +49,7 @@ Route::middleware('auth:admin')->group(function () {
         Route::get('/new-profile-requests', 'submitted')->name('submitted');
         Route::get('/profile/{id?}', 'profile')->name('profile');
         Route::get('/profile/{id?}/edit', 'edit')->name('edit');
+        Route::post('/profile/{id?}/save', 'save')->name('save');
         Route::get('/profile-status/{id?}', 'profileStatus')->name('profile.status');
         Route::get('/delete/{id?}', 'delete')->name('delete');
         Route::get('/status/{id?}', 'status')->name('status');

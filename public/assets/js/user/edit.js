@@ -59,42 +59,7 @@ var validator = FormValidation.formValidation(
                         message: 'Zip/Postal Code is required'
                     }
                 }
-            },
-            'hotel_id': {
-                validators: {
-                    notEmpty: {
-                        message: 'Please select hotel'
-                    }
-                }
-            },
-            'resturant_name': {
-                validators: {
-                    notEmpty: {
-                        message: 'Resturant name is required'
-                    }
-                }
-            },
-            'resturant_address': {
-                validators: {
-                    notEmpty: {
-                        message: 'Resturant address is required'
-                    }
-                }
-            },
-            'resturant_trade_license': {
-                validators: {
-                    notEmpty: {
-                        message: 'Resturant trade license is required'
-                    }
-                }
-            },
-            'no_of_dept': {
-                validators: {
-                    notEmpty: {
-                        message: 'No of departments are required'
-                    }
-                }
-            },
+            }
         },
 
         plugins: {
@@ -117,14 +82,9 @@ function validateBtn() {
     let address = $("[name='address']");
     let city = $("[name='city']");
     let zip_code = $("[name='zip_code']");
+    let specialise = $("[name='specialise[]'] option:selected");
 
-    let hotel = $("[name='hotel_id'] option:selected");
-    let resturant_name = $("[name='resturant_name']");
-    let resturant_address = $("[name='resturant_address']");
-    let resturant_trade_license = $("[name='resturant_trade_license']");
-    let no_of_dept = $("[name='no_of_dept']");
-
-    if (firstName.val().length > 0 && lastName.val().length > 0 && dob.val().length > 0 && gender.val().length > 0 && country.val().length > 0 && address.val().length && city.val().length > 0 && zip_code.val().length > 0 && hotel.val().length > 0 && resturant_name.val().length > 0 && resturant_address.val().length > 0 && resturant_trade_license.val().length > 0 && no_of_dept.val().length > 0) {
+    if (firstName.val().length > 0 && lastName.val().length > 0 && dob.val().length > 0 && gender.val().length > 0 && country.val().length > 0 && address.val().length && city.val().length > 0 && zip_code.val().length > 0 && specialise.length > 0) {
         $("#editProfileBtn").prop('disabled', false);
     } else {
         $("#editProfileBtn").prop('disabled', true);
@@ -133,27 +93,6 @@ function validateBtn() {
 
 (function($) {
     initDatePicker('#dob');
-
-    $("[name='no_of_dept']").blur(function (e) {
-        let elm = $(this);
-
-        if (elm.val().length == 0) {
-            elm.val('0');
-        }
-    });
-
-    $(".resturant-depts").change(function (e) {
-        e.preventDefault();
-        let elm = $(this);
-        if (elm.is(":checked")) {
-            elm.closest('.row').find('.hourly-rate').show();
-        } else {
-            elm.closest('.row').find('.hourly-rate input').val('');
-            elm.closest('.row').find('.hourly-rate').hide();
-        }
-
-        $("[name='no_of_dept']").val($(".resturant-depts:checked").length);
-    });
 
 })(jQuery);
 
@@ -176,5 +115,26 @@ submitButton.addEventListener('click', function (e) {
                 form.submit();
             }
         });
+    }
+});
+
+var slider = document.querySelector("#experience_slider");
+var valueMin = document.querySelector("[name='experience_min']");
+var valueMax = document.querySelector("[name='experience_max']");
+noUiSlider.create(slider, {
+    start: [0, 5],
+    connect: true,
+    tooltips: [true, true],
+    range: {
+        "min": 0,
+        "max": 20
+    }
+});
+
+slider.noUiSlider.on("update", function (values, handle) {
+    if (handle) {
+        valueMax.value = values[handle];
+    } else {
+        valueMin.value = values[handle];
     }
 });

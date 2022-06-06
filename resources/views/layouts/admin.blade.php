@@ -48,6 +48,24 @@
             .bg-primary.hoverable:hover {
                 background-color: #0095e8!important;
             }
+
+            .hourly-rate-input {
+                height: auto !important;
+                padding: 4px 10px 4px 20px !important;
+                font-size: 13px !important;
+            }
+
+            .currency-prefix {
+                position: absolute;
+                top: 0px;
+                left: 0px;
+                z-index: 2;
+                display: inline-block;
+                font-size: 13px;
+                /* line-height: 30px; */
+                padding: 5px 10px;
+                color: #696969;
+            }
         </style>
         @yield('css')
 		<!--end::Global Stylesheets Bundle-->

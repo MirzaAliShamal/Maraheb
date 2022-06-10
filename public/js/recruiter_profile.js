@@ -230,11 +230,8 @@ function validateBtn() {
     $(".resturant-depts").change(function (e) {
         e.preventDefault();
         let elm = $(this);
-        if (elm.is(":checked")) {
-            elm.closest('.row').find('.hourly-rate').show();
-        } else {
-            elm.closest('.row').find('.hourly-rate').hide();
-        }
+
+        $("[name='no_of_dept']").val($(".resturant-depts:checked").length);
     });
 
     $("#submitBtn").click(function (e) {

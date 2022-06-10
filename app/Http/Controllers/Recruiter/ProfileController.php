@@ -50,18 +50,12 @@ class ProfileController extends Controller
         $resturant->no_of_dept = $req->no_of_dept;
         $resturant->save();
 
-        for ($i=1; $i <= count($req->hourly_rate) ; $i++) {
-            if (is_null($req->hourly_rate[$i])) {
-                continue;
-            }
-            if (!isset($req->resturant_depts[$i])) {
-                continue;
-            }
+        $resturant->resturantDepartments()->delete();
+        for ($i=0; $i <= count($req->resturant_depts) ; $i++) {
 
             ResturantDepartment::create([
                 'resturant_id' => $resturant->id,
                 'department_id' => $req->resturant_depts[$i],
-                'rate' => $req->hourly_rate[$i],
             ]);
         }
 
@@ -94,10 +88,10 @@ class ProfileController extends Controller
                 ]);
             }
         } elseif ($type == "resturant_logo") {
-            if (!is_null($recruiter->resturant_logo)) {
-                $obj['name'] = $recruiter->resturant_logo;
-                $obj['path'] = Storage::disk('public')->url($recruiter->resturant_logo);
-                $obj['size'] = Storage::disk('public')->size($recruiter->resturant_logo);
+            if (!is_null($recruiter->resturant->logo)) {
+                $obj['name'] = $recruiter->resturant->logo;
+                $obj['path'] = Storage::disk('public')->url($recruiter->resturant->logo);
+                $obj['size'] = Storage::disk('public')->size($recruiter->resturant->logo);
                 $data[] = $obj;
 
                 return response()->json($data);

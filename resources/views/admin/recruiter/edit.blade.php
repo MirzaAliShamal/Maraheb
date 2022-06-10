@@ -304,7 +304,7 @@
                                                 </div>
                                                 <div class="col-6">
                                                     <div class="hourly-rate position-relative" style="{{ checkResturantDepts($recruiter->resturant->id, $item->id) ? '' : 'display:none;' }}">
-                                                        <span class="currency-prefix">$</span>
+                                                        <span class="currency-prefix">AED</span>
                                                         <input type="text" name="hourly_rate[{{ $loop->iteration }}]"
                                                             id="hourly-{{ $loop->iteration }}" class="form-control form-control-solid hourly-rate-input"
                                                             value="{{ checkResturantDeptHourly($recruiter->resturant->id, $item->id) }}"

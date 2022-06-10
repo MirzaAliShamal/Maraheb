@@ -9,6 +9,11 @@
         .iti {
             display: block;
         }
+        .iti__flag-container {
+            top: auto;
+            bottom: auto;
+            height: 60px;
+        }
         input[type='tel'] {
             padding-left: 52px !important;
         }
@@ -43,11 +48,12 @@
                     <div class="form-group mb-3">
                         <label for="first_name">First Name</label>
                         <input type="text" name="first_name" class="@error('first_name') error @enderror" id="first_name" value="{{ old('first_name') }}" placeholder="First Name">
-                        <label id="first_name-error" class="error" for="first_name">
-                            @error('first_name')
+
+                        @error('first_name')
+                            <label id="first_name-error" class="error" for="first_name">
                                 {{ $message }}
-                            @enderror
-                        </label>
+                            </label>
+                        @enderror
                     </div>
                 </div>
 
@@ -55,11 +61,12 @@
                     <div class="form-group mb-3">
                         <label for="last_name">Last Name</label>
                         <input type="text" name="last_name" class="@error('last_name') error @enderror" id="last_name" value="{{ old('last_name') }}" placeholder="Last Name">
-                        <label id="last_name-error" class="error" for="last_name">
-                            @error('last_name')
+
+                        @error('last_name')
+                            <label id="last_name-error" class="error" for="last_name">
                                 {{ $message }}
-                            @enderror
-                        </label>
+                            </label>
+                        @enderror
                     </div>
                 </div>
 
@@ -67,11 +74,12 @@
                     <div class="form-group mb-3">
                         <label>Email Address</label>
                         <input type="email" name="email" class="@error('email') error @enderror" id="email" value="{{ old('email') }}" placeholder="Email">
-                        <label id="email-error" class="error" for="email">
-                            @error('email')
+
+                        @error('email')
+                            <label id="email-error" class="error" for="email">
                                 {{ $message }}
-                            @enderror
-                        </label>
+                            </label>
+                        @enderror
                     </div>
                 </div>
 
@@ -79,11 +87,12 @@
                     <div class="form-group mb-3">
                         <label for="mobile_no">Mobile No</label>
                         <input type="tel" name="mobile_no" class="@error('mobile_no') error @enderror" value="{{ old('mobile_no') }}" id="mobile_no" placeholder="">
-                        <label id="mobile_no-error" class="error" for="mobile_no">
-                            @error('mobile_no')
+
+                        @error('mobile_no')
+                            <label id="mobile_no-error" class="error" for="mobile_no">
                                 {{ $message }}
-                            @enderror
-                        </label>
+                            </label>
+                        @enderror
                     </div>
                 </div>
 
@@ -91,11 +100,12 @@
                     <div class="form-group mb-3">
                         <label for="password">Password</label>
                         <input type="password" name="password" class="@error('password') error @enderror" id="password" value="" placeholder="Password">
-                        <label id="password-error" class="error" for="password">
-                            @error('password')
+
+                        @error('password')
+                            <label id="password-error" class="error" for="password">
                                 {{ $message }}
-                            @enderror
-                        </label>
+                            </label>
+                        @enderror
                     </div>
                 </div>
 
@@ -103,11 +113,12 @@
                     <div class="form-group mb-3">
                         <label for="password_confirmation">Confirm Password</label>
                         <input type="password" name="password_confirmation" class="@error('password_confirmation') error @enderror" id="password_confirmation" value="" placeholder="Confirm Password">
-                        <label id="password_confirmation-error" class="error" for="password_confirmation">
-                            @error('password_confirmation')
+
+                        @error('password_confirmation')
+                            <label id="password_confirmation-error" class="error" for="password_confirmation">
                                 {{ $message }}
-                            @enderror
-                        </label>
+                            </label>
+                        @enderror
                     </div>
                 </div>
 

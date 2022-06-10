@@ -28,21 +28,23 @@
             <div class="form-group">
                 <label>Email Address</label>
                 <input type="email" name="email" class="@error('email') error @enderror" id="email" value="{{ old('email') }}" placeholder="Email" autocomplete="off">
-                <label id="email-error" class="error" for="email">
-                    @error('email')
+
+                @error('email')
+                    <label id="email-error" class="error" for="email">
                         {{ $message }}
-                    @enderror
-                </label>
+                    </label>
+                @enderror
             </div>
 
             <div class="form-group">
                 <label for="password">Password</label>
                 <input type="password" name="password" class="@error('password') error @enderror" id="password" value="" placeholder="Password" autocomplete="off">
-                <label id="password-error" class="error" for="password">
-                    @error('password')
+
+                @error('password')
+                    <label id="password-error" class="error" for="password">
                         {{ $message }}
-                    @enderror
-                </label>
+                    </label>
+                @enderror
             </div>
 
             <div class="form-group">

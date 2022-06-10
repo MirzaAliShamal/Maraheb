@@ -106,7 +106,7 @@
                     </div>
                 </div>
 
-                <div data-kt-menu-trigger="click" class="menu-item menu-accordion @routeis('admin.resturant.manager.*') here show @endrouteis">
+                <div data-kt-menu-trigger="click" class="menu-item menu-accordion @routeis('admin.recruiter.*') here show @endrouteis">
                     <span class="menu-link">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotone/Layout/Layout-4-blocks.svg-->
@@ -118,12 +118,12 @@
                             </span>
                             <!--end::Svg Icon-->
                         </span>
-                        <span class="menu-title">Resturant Managers</span>
+                        <span class="menu-title">Recruiters</span>
                         <span class="menu-arrow"></span>
                     </span>
-                    <div class="menu-sub menu-sub-accordion @routeis('admin.resturant.manager.submitted') menu-active-bg @endrouteis">
+                    <div class="menu-sub menu-sub-accordion @routeis('admin.recruiter.submitted') menu-active-bg @endrouteis">
                         <div class="menu-item">
-                            <a class="menu-link @routeis('admin.resturant.manager.submitted') active @endrouteis" href="{{ route('admin.resturant.manager.submitted') }}">
+                            <a class="menu-link @routeis('admin.recruiter.submitted') active @endrouteis" href="{{ route('admin.recruiter.submitted') }}">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
@@ -131,9 +131,9 @@
                             </a>
                         </div>
                     </div>
-                    <div class="menu-sub menu-sub-accordion @routeis('admin.resturant.manager.approved') menu-active-bg @endrouteis">
+                    <div class="menu-sub menu-sub-accordion @routeis('admin.recruiter.approved') menu-active-bg @endrouteis">
                         <div class="menu-item">
-                            <a class="menu-link @routeis('admin.resturant.manager.approved') active @endrouteis" href="{{ route('admin.resturant.manager.approved') }}">
+                            <a class="menu-link @routeis('admin.recruiter.approved') active @endrouteis" href="{{ route('admin.recruiter.approved') }}">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
@@ -141,9 +141,9 @@
                             </a>
                         </div>
                     </div>
-                    <div class="menu-sub menu-sub-accordion @routeis('admin.resturant.manager.rejected') menu-active-bg @endrouteis">
+                    <div class="menu-sub menu-sub-accordion @routeis('admin.recruiter.rejected') menu-active-bg @endrouteis">
                         <div class="menu-item">
-                            <a class="menu-link @routeis('admin.resturant.manager.rejected') active @endrouteis" href="{{ route('admin.resturant.manager.rejected') }}">
+                            <a class="menu-link @routeis('admin.recruiter.rejected') active @endrouteis" href="{{ route('admin.recruiter.rejected') }}">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
@@ -151,9 +151,9 @@
                             </a>
                         </div>
                     </div>
-                    <div class="menu-sub menu-sub-accordion @routeis('admin.resturant.manager.pending') menu-active-bg @endrouteis">
+                    <div class="menu-sub menu-sub-accordion @routeis('admin.recruiter.pending') menu-active-bg @endrouteis">
                         <div class="menu-item">
-                            <a class="menu-link @routeis('admin.resturant.manager.pending') active @endrouteis" href="{{ route('admin.resturant.manager.pending') }}">
+                            <a class="menu-link @routeis('admin.recruiter.pending') active @endrouteis" href="{{ route('admin.recruiter.pending') }}">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>

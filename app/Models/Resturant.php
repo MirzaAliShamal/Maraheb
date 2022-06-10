@@ -11,8 +11,8 @@ class Resturant extends Model
 
     protected $guarded = [];
 
-    public function resturantManager() {
-        return $this->belongsTo(ResturantManager::class);
+    public function recruiter() {
+        return $this->belongsTo(Recruiter::class);
     }
 
     public function hotel() {

@@ -4,16 +4,16 @@ namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
 use Twilio\Rest\Client;
+use App\Models\Recruiter;
 use App\Models\VerifyUser;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use App\Models\ResturantManager;
+use App\Models\VerifyRecruiter;
 use Illuminate\Validation\Rules;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
-use App\Models\VerifyResturantManager;
 use Illuminate\Auth\Events\Registered;
 use App\Mail\General\VerificationEmail;
 use App\Providers\RouteServiceProvider;
@@ -44,8 +44,8 @@ class RegisteredUserController extends Controller
         $request->validate([
             'first_name' => ['required', 'string', 'max:191'],
             'last_name' => ['required', 'string', 'max:191'],
-            'email' => ['required', 'string', 'email', 'max:191', 'unique:users', 'unique:resturant_managers'],
-            'mobile_no' => ['required', 'max:191', 'unique:users', 'unique:resturant_managers'],
+            'email' => ['required', 'string', 'email', 'max:191', 'unique:users', 'unique:recruiters'],
+            'mobile_no' => ['required', 'max:191', 'unique:users', 'unique:recruiters'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
@@ -88,8 +88,8 @@ class RegisteredUserController extends Controller
 
                 return redirect(RouteServiceProvider::USER);
 
-            } else if ($request->role === 'resturant') {
-                $resturant_manager = ResturantManager::create([
+            } else if ($request->role === 'recruiter') {
+                $recruiter = Recruiter::create([
                     'first_name' => $request->first_name,
                     'last_name' => $request->last_name,
                     'email' => $request->email,
@@ -97,22 +97,22 @@ class RegisteredUserController extends Controller
                     'password' => Hash::make($request->password),
                 ]);
 
-                event(new Registered($resturant_manager));
+                event(new Registered($recruiter));
 
-                Auth::guard('resturant_manager')->login($resturant_manager);
+                Auth::guard('recruiter')->login($recruiter);
 
-                $token = $resturant_manager->id.hash('sha256', Str::random(120));
+                $token = $recruiter->id.hash('sha256', Str::random(120));
 
-                VerifyResturantManager::create([
-                    'resturant_manager_id' => $resturant_manager->id,
+                VerifyRecruiter::create([
+                    'recruiter_id' => $recruiter->id,
                     'token' => $token,
                 ]);
 
                 $data['token'] = $token;
                 $email = new VerificationEmail($data);
-                Mail::to($resturant_manager->email)->send($email);
+                Mail::to($recruiter->email)->send($email);
 
-                return redirect(RouteServiceProvider::RESTURANT);
+                return redirect(RouteServiceProvider::RECRUITER);
             } else {
                 return redirect()->back();
             }

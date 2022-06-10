@@ -13,6 +13,6 @@ class VerifyCsrfToken extends Middleware
      */
     protected $except = [
         'user/upload-attachment',
-        'resturant-manager/upload-attachment',
+        'recruiter/upload-attachment',
     ];
 }

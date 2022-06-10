@@ -18,9 +18,9 @@ class ApproveProfile
     public function handle(Request $request, Closure $next, $guard = null)
     {
         if (Auth::guard($guard)->check()) {
-            if ($guard == 'resturant_manager') {
-                if (resturantManager()->profile_status !== 'approved') {
-                    return redirect()->route('resturant.manager.complete.profile');
+            if ($guard == 'recruiter') {
+                if (recruiter()->profile_status !== 'approved') {
+                    return redirect()->route('recruiter.complete.profile');
                 }
             } else {
                 if (auth()->user()->profile_status !== 'approved') {

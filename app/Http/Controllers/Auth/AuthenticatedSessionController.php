@@ -36,8 +36,8 @@ class AuthenticatedSessionController extends Controller
             return redirect()->intended(RouteServiceProvider::USER);
         }
 
-        if ($request->role === 'resturant') {
-            return redirect()->intended(RouteServiceProvider::RESTURANT);
+        if ($request->role === 'recruiter') {
+            return redirect()->intended(RouteServiceProvider::RECRUITER);
         }
     }
 
@@ -58,9 +58,9 @@ class AuthenticatedSessionController extends Controller
         return redirect('/');
     }
 
-    public function destroyResturantManager(Request $request)
+    public function destroyRecruiter(Request $request)
     {
-        Auth::guard('resturant_manager')->logout();
+        Auth::guard('recruiter')->logout();
 
         $request->session()->invalidate();
 

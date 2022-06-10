@@ -6,7 +6,7 @@ use App\Http\Controllers\Admin\HotelController;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\DepartmentController;
-use App\Http\Controllers\Admin\ResturantManagerController;
+use App\Http\Controllers\Admin\RecruiterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,7 +42,7 @@ Route::middleware('auth:admin')->group(function () {
         Route::get('/status/{id?}', 'status')->name('status');
     });
 
-    Route::prefix('resturant-manager')->name('resturant.manager.')->controller(ResturantManagerController::class)->group(function () {
+    Route::prefix('recruiter')->name('recruiter.')->controller(RecruiterController::class)->group(function () {
         Route::get('/approved', 'approved')->name('approved');
         Route::get('/rejected', 'rejected')->name('rejected');
         Route::get('/pending', 'pending')->name('pending');

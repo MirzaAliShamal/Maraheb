@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('resturants', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('resturant_manager_id')->constrained()->onDelete('cascade');
+            $table->foreignId('recruiter_id')->constrained()->onDelete('cascade');
             $table->foreignId('hotel_id')->constrained()->onDelete('cascade');
             $table->string('logo');
             $table->string('name');

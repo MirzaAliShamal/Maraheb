@@ -6,9 +6,9 @@ use Carbon\Carbon;
 use App\Models\VerifyUser;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Models\VerifyRecruiter;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
-use App\Models\VerifyResturantManager;
 use App\Mail\General\VerificationEmail;
 
 class HomeController extends Controller
@@ -22,7 +22,7 @@ class HomeController extends Controller
     {
         if (Auth::check()) {
             return view('front.mobile_verification', get_defined_vars());
-        } else if (Auth::guard('resturant_manager')->check()) {
+        } else if (Auth::guard('recruiter')->check()) {
             return view('front.mobile_verification', get_defined_vars());
         } else {
             abort(404);
@@ -41,12 +41,12 @@ class HomeController extends Controller
                     $user->save();
 
                     $url = route('user.dashboard');
-                } else if (Auth::guard('resturant_manager')->check()) {
-                    $manager = resturantManager();
-                    $manager->is_mobile_verified = 1;
-                    $manager->save();
+                } else if (Auth::guard('recruiter')->check()) {
+                    $recruiter = recruiter();
+                    $recruiter->is_mobile_verified = 1;
+                    $recruiter->save();
 
-                    $url = route('resturant.manager.dashboard');
+                    $url = route('recruiter.dashboard');
                 }
 
                 session()->forget('otp');
@@ -79,17 +79,17 @@ class HomeController extends Controller
             } else {
                 return view('front.email_verification', get_defined_vars());
             }
-        } else if (Auth::guard('resturant_manager')->check()) {
+        } else if (Auth::guard('recruiter')->check()) {
             if (isset($req->token)) {
-                $verify = VerifyResturantManager::where('token', $req->token)->first();
+                $verify = VerifyRecruiter::where('token', $req->token)->first();
 
                 if (!is_null($verify)) {
-                    $resturant_manager = $verify->resturantManager;
-                    $resturant_manager->email_verified_at = Carbon::now();
-                    $resturant_manager->is_email_verified = 1;
-                    $resturant_manager->save();
+                    $recruiter = $verify->recruiter;
+                    $recruiter->email_verified_at = Carbon::now();
+                    $recruiter->is_email_verified = 1;
+                    $recruiter->save();
 
-                    return redirect()->route('resturant.manager.dashboard');
+                    return redirect()->route('recruiter.dashboard');
                 } else {
                     abort(403);
                 }
@@ -117,13 +117,13 @@ class HomeController extends Controller
             } else {
                 abort(403);
             }
-        } else if (Auth::guard('resturant_manager')->check()) {
-            $resturant_manager = resturantManager();
-            $token = $resturant_manager->verifyResturantManager->token;
+        } else if (Auth::guard('recruiter')->check()) {
+            $recruiter = recruiter();
+            $token = $recruiter->verifyRecruiter->token;
 
             if (!is_null($token)) {
-                Mail::send('email.general.verify_email', get_defined_vars(), function ($message) use($resturant_manager) {
-                    $message->to($resturant_manager->email, $resturant_manager->name);
+                Mail::send('email.general.verify_email', get_defined_vars(), function ($message) use($recruiter) {
+                    $message->to($recruiter->email, $recruiter->name);
                     $message->subject('Verify you Email Address');
                 });
 

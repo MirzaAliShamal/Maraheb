@@ -45,18 +45,18 @@
         </div>
 
         <div class="outer-box">
-            @if (Auth::guard('resturant_manager')->check())
+            @if (Auth::guard('recruiter')->check())
                 <div class="dropdown dashboard-option">
                     <a class="dropdown-toggle" role="button" data-toggle="dropdown" aria-expanded="false">
-                        <img src="{{ resturantManager()->profile }}" alt="avatar" class="thumb">
+                        <img src="{{ recruiter()->profile }}" alt="avatar" class="thumb">
                         <span class="name">My Account</span>
                     </a>
                     <ul class="dropdown-menu">
                         <li>
-                            <a href="{{ route('resturant.manager.dashboard') }}"><i class="la la-user-alt"></i>Dashboard</a>
+                            <a href="{{ route('recruiter.dashboard') }}"><i class="la la-user-alt"></i>Dashboard</a>
                         </li>
                         <li>
-                            <a href="{{ route('resturant.manager.logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="la la-sign-out"></i>Logout</a>
+                            <a href="{{ route('recruiter.logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="la la-sign-out"></i>Logout</a>
                         </li>
                     </ul>
                 </div>
@@ -100,18 +100,18 @@
 
             <div class="outer-box">
                 <!-- Login/Register -->
-                @if (Auth::guard('resturant_manager')->check())
+                @if (Auth::guard('recruiter')->check())
                     <div class="dropdown dashboard-option">
                         <a class="dropdown-toggle" role="button" data-toggle="dropdown" aria-expanded="false">
-                            <img src="{{ resturantManager()->profile }}" alt="avatar" class="thumb">
+                            <img src="{{ recruiter()->profile }}" alt="avatar" class="thumb">
                         </a>
                         <ul class="dropdown-menu">
 
                             <li>
-                                <a href="{{ route('resturant.manager.dashboard') }}"><i class="la la-user-alt"></i>Dashboard</a>
+                                <a href="{{ route('recruiter.dashboard') }}"><i class="la la-user-alt"></i>Dashboard</a>
                             </li>
                             <li>
-                                <a href="{{ route('resturant.manager.logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="la la-sign-out"></i>Logout</a>
+                                <a href="{{ route('recruiter.logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="la la-sign-out"></i>Logout</a>
                             </li>
                         </ul>
                     </div>

@@ -44,8 +44,8 @@
 
     </div><!-- End Page Wrapper -->
 
-    @if (Auth::guard('resturant_manager')->check())
-        <form action="{{ route('resturant.manager.logout') }}" method="POST" id="logout-form">@csrf</form>
+    @if (Auth::guard('recruiter')->check())
+        <form action="{{ route('recruiter.logout') }}" method="POST" id="logout-form">@csrf</form>
     @elseif (Auth::guard('admin')->check())
 
     @elseif (Auth::guard('web')->check())

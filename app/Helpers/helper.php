@@ -10,8 +10,8 @@ function admin() {
     return Auth::guard('admin')->user();
 }
 
-function resturantManager() {
-    return Auth::guard('resturant_manager')->user();
+function recruiter() {
+    return Auth::guard('recruiter')->user();
 }
 
 function generateNumericOTP($n) {

@@ -33,7 +33,7 @@
                                 <a href="javascript:;" class="theme-btn btn-style-four role-chooser active" data-role="user"><i class="la la-user"></i> Candidate </a>
                             </div>
                             <div class="col-lg-6 col-md-12">
-                                <a href="javascript:;" class="theme-btn btn-style-four role-chooser" data-role="resturant"><i class="la la-briefcase"></i> Resturant Manager </a>
+                                <a href="javascript:;" class="theme-btn btn-style-four role-chooser" data-role="recruiter"><i class="la la-briefcase"></i> Recruiter </a>
                             </div>
                         </div>
                     </div>

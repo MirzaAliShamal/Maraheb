@@ -19,7 +19,7 @@ class PurchaseManager extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'resturant_manager_id',
+        'recruiter_id',
         'avatar',
         'first_name',
         'last_name',
@@ -62,7 +62,7 @@ class PurchaseManager extends Model
         }
     }
 
-    public function resturantManager() {
-        return $this->belongsTo(ResturantManager::class);
+    public function recruiter() {
+        return $this->belongsTo(Recruiter::class);
     }
 }

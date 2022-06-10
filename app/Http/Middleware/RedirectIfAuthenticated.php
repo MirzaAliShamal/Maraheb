@@ -25,8 +25,8 @@ class RedirectIfAuthenticated
             if (Auth::guard($guard)->check()) {
                 if ($guard == "admin") {
                     return redirect(RouteServiceProvider::ADMIN);
-                } else if ($guard == "resturant_manager") {
-                    return redirect(RouteServiceProvider::CANDIDATE);
+                } else if ($guard == "recruiter") {
+                    return redirect(RouteServiceProvider::RECRUITER);
                 } else {
                     return redirect(RouteServiceProvider::USER);
                 }

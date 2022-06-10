@@ -58,8 +58,8 @@ class LoginRequest extends FormRequest
             RateLimiter::clear($this->throttleKey());
         }
 
-        if ($this->role === 'resturant') {
-            if (! Auth::guard('resturant_manager')->attempt($this->only('email', 'password'), $this->boolean('remember'))) {
+        if ($this->role === 'recruiter') {
+            if (! Auth::guard('recruiter')->attempt($this->only('email', 'password'), $this->boolean('remember'))) {
                 RateLimiter::hit($this->throttleKey());
 
                 throw ValidationException::withMessages([

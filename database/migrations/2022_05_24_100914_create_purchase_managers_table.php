@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('purchase_managers', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('resturant_manager_id')->constrained()->onDelete('cascade');
+            $table->foreignId('recruiter_id')->constrained()->onDelete('cascade');
             $table->string('avatar')->nullable();
             $table->string('first_name');
             $table->string('last_name');

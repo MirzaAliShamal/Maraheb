@@ -18,8 +18,8 @@ class MobileVerify
     public function handle(Request $request, Closure $next, $guard = null)
     {
         if (Auth::guard($guard)->check()) {
-            if ($guard == 'resturant_manager') {
-                if (!resturantManager()->is_mobile_verified) {
+            if ($guard == 'recruiter') {
+                if (!recruiter()->is_mobile_verified) {
                     return redirect()->route('mobile.verify');
                 }
             } else {

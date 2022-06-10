@@ -51,9 +51,9 @@ return [
             'provider' => 'admins',
         ],
 
-        'resturant_manager' => [
+        'recruiter' => [
             'driver' => 'session',
-            'provider' => 'resturant_managers',
+            'provider' => 'recruiters',
         ],
 
         'purchase_manager' => [
@@ -90,9 +90,9 @@ return [
             'model' => App\Models\Admin::class,
         ],
 
-        'resturant_managers' => [
+        'recruiters' => [
             'driver' => 'eloquent',
-            'model' => App\Models\ResturantManager::class,
+            'model' => App\Models\Recruiter::class,
         ],
 
         'purchase_managers' => [

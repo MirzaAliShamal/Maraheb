@@ -192,7 +192,12 @@
                                 <label class="required fw-bold fs-6 mb-2">Resturant Logo</label>
                                 <!--end::Label-->
                                 <!--begin::Input-->
-                                <input type="file" name="resturant_logo" class="dropify @error('resturant_logo') is-invalid @enderror" data-default-file="{{ Storage::disk('public')->url($recruiter->resturant->logo) }}">
+                                @if (!is_null($recruiter->resturant))
+                                    <input type="file" name="resturant_logo" class="dropify @error('resturant_logo') is-invalid @enderror" data-default-file="{{ Storage::disk('public')->url($recruiter->resturant->logo) }}">
+                                @else
+                                    <input type="file" name="resturant_logo" class="dropify @error('resturant_logo') is-invalid @enderror">
+                                @endif
+
                                 @error('resturant_logo')
                                     <span class="invalid-feedback">
                                         <strong>{{ $message }}</strong>
@@ -209,7 +214,7 @@
                                 <!--begin::Input-->
                                 <select class="form-select form-select-solid @error('hotel_id') is-invalid @enderror" onchange="validateBtn()" name="hotel_id" data-control="select2" data-placeholder="Select a Hotel">
                                     @foreach (hotels() as $item)
-                                        <option value="{{ $item->id }}" {{ $recruiter->resturant->hotel_id == $item->id ? 'selected' : '' }}>{{ $item->name }}</option>
+                                        <option value="{{ $item->id }}" {{ !is_null($recruiter->resturant) ? $recruiter->resturant->hotel_id == $item->id ? 'selected' : '' : '' }}>{{ $item->name }}</option>
                                     @endforeach
                                 </select>
                                 @error('hotel_id')
@@ -226,7 +231,7 @@
                                 <label class="required fw-bold fs-6 mb-2">Resturant Name</label>
                                 <!--end::Label-->
                                 <!--begin::Input-->
-                                <input type="text" name="resturant_name" onkeyup="validateBtn()" class="form-control form-control-solid mb-3 mb-lg-0 @error('resturant_name') is-invalid @enderror" value="{{ $recruiter->resturant->name }}" autocomplete="off">
+                                <input type="text" name="resturant_name" onkeyup="validateBtn()" class="form-control form-control-solid mb-3 mb-lg-0 @error('resturant_name') is-invalid @enderror" value="{{ !is_null($recruiter->resturant) ? $recruiter->resturant->name : '' }}" autocomplete="off">
                                 @error('resturant_name')
                                     <span class="invalid-feedback">
                                         <strong>{{ $message }}</strong>
@@ -241,7 +246,7 @@
                                 <label class="required fw-bold fs-6 mb-2">Resturant Trade License</label>
                                 <!--end::Label-->
                                 <!--begin::Input-->
-                                <input type="text" name="resturant_trade_license" onkeyup="validateBtn()" class="form-control form-control-solid mb-3 mb-lg-0 @error('resturant_trade_license') is-invalid @enderror" value="{{ $recruiter->resturant->trade_license }}" autocomplete="off">
+                                <input type="text" name="resturant_trade_license" onkeyup="validateBtn()" class="form-control form-control-solid mb-3 mb-lg-0 @error('resturant_trade_license') is-invalid @enderror" value="{{ !is_null($recruiter->resturant) ? $recruiter->resturant->trade_license : '' }}" autocomplete="off">
                                 @error('resturant_trade_license')
                                     <span class="invalid-feedback">
                                         <strong>{{ $message }}</strong>
@@ -256,7 +261,7 @@
                                 <label class="required fw-bold fs-6 mb-2">Resturant Address</label>
                                 <!--end::Label-->
                                 <!--begin::Input-->
-                                <input type="text" name="resturant_address" onkeyup="validateBtn()" class="form-control form-control-solid mb-3 mb-lg-0 @error('resturant_address') is-invalid @enderror" value="{{ $recruiter->resturant->address }}" autocomplete="off">
+                                <input type="text" name="resturant_address" onkeyup="validateBtn()" class="form-control form-control-solid mb-3 mb-lg-0 @error('resturant_address') is-invalid @enderror" value="{{ !is_null($recruiter->resturant) ? $recruiter->resturant->address : '' }}" autocomplete="off">
                                 @error('resturant_address')
                                     <span class="invalid-feedback">
                                         <strong>{{ $message }}</strong>
@@ -271,7 +276,7 @@
                                 <label class="required fw-bold fs-6 mb-2">No of Departments</label>
                                 <!--end::Label-->
                                 <!--begin::Input-->
-                                <input type="text" name="no_of_dept" onkeyup="validateBtn()" class="form-control form-control-solid mb-3 mb-lg-0 @error('no_of_dept') is-invalid @enderror" value="{{ $recruiter->resturant->no_of_dept }}" autocomplete="off">
+                                <input type="text" name="no_of_dept" onkeyup="validateBtn()" class="form-control form-control-solid mb-3 mb-lg-0 @error('no_of_dept') is-invalid @enderror" value="{{ !is_null($recruiter->resturant) ? $recruiter->resturant->no_of_dept : '' }}" autocomplete="off">
                                 @error('no_of_dept')
                                     <span class="invalid-feedback">
                                         <strong>{{ $message }}</strong>
@@ -295,7 +300,7 @@
                                                         <input class="form-check-input resturant-depts"
                                                             type="checkbox" value="{{ $item->id }}" id="check-{{ $loop->iteration }}"
                                                             name="resturant_depts[{{ $loop->iteration }}]"
-                                                            {{ checkResturantDepts($recruiter->resturant->id, $item->id) ? 'checked' : '' }}
+                                                            {{ !is_null($recruiter->resturant) ? checkResturantDepts($recruiter->resturant->id, $item->id) ? 'checked' : '' : '' }}
                                                         >
                                                         <label class="form-check-label" for="check-{{ $loop->iteration }}">
                                                             {{ $item->name }}
@@ -303,11 +308,11 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-6">
-                                                    <div class="hourly-rate position-relative" style="{{ checkResturantDepts($recruiter->resturant->id, $item->id) ? '' : 'display:none;' }}">
+                                                    <div class="hourly-rate position-relative" style="{{ !is_null($recruiter->resturant) ? checkResturantDepts($recruiter->resturant->id, $item->id) ? '' : 'display:none;' : 'display:none;' }}">
                                                         <span class="currency-prefix">AED</span>
                                                         <input type="text" name="hourly_rate[{{ $loop->iteration }}]"
                                                             id="hourly-{{ $loop->iteration }}" class="form-control form-control-solid hourly-rate-input"
-                                                            value="{{ checkResturantDeptHourly($recruiter->resturant->id, $item->id) }}"
+                                                            value="{{ !is_null($recruiter->resturant) ? checkResturantDeptHourly($recruiter->resturant->id, $item->id) : '' }}"
                                                             placeholder="Hourly Rate" autocomplete="off"
                                                         >
                                                     </div>

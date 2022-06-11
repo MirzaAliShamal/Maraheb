@@ -278,7 +278,9 @@
                 <!--end::Label-->
                 <!--begin::Col-->
                 <div class="col-lg-8">
-                    <img src="{{ Storage::disk('public')->url($recruiter->resturant->logo) }}" width="180px" class="img-fluid" alt="">
+                    @if (!is_null($recruiter->resturant))
+                        <img src="{{ Storage::disk('public')->url($recruiter->resturant->logo) }}" width="180px" class="img-fluid" alt="">
+                    @endif
                 </div>
                 <!--end::Col-->
             </div>
@@ -288,7 +290,9 @@
                 <!--end::Label-->
                 <!--begin::Col-->
                 <div class="col-lg-8">
-                    <span class="fw-bolder fs-6 text-gray-800">{{ $recruiter->resturant->hotel->name }}</span>
+                    @if (!is_null($recruiter->resturant))
+                        <span class="fw-bolder fs-6 text-gray-800">{{ $recruiter->resturant->hotel->name }}</span>
+                    @endif
                 </div>
                 <!--end::Col-->
             </div>
@@ -298,7 +302,9 @@
                 <!--end::Label-->
                 <!--begin::Col-->
                 <div class="col-lg-8">
-                    <span class="fw-bolder fs-6 text-gray-800">{{ $recruiter->resturant->name }}</span>
+                    @if (!is_null($recruiter->resturant))
+                        <span class="fw-bolder fs-6 text-gray-800">{{ $recruiter->resturant->name }}</span>
+                    @endif
                 </div>
                 <!--end::Col-->
             </div>
@@ -308,7 +314,9 @@
                 <!--end::Label-->
                 <!--begin::Col-->
                 <div class="col-lg-8">
-                    <span class="fw-bolder fs-6 text-gray-800">{{ $recruiter->resturant->trade_license }}</span>
+                    @if (!is_null($recruiter->resturant))
+                        <span class="fw-bolder fs-6 text-gray-800">{{ $recruiter->resturant->trade_license }}</span>
+                    @endif
                 </div>
                 <!--end::Col-->
             </div>
@@ -318,7 +326,9 @@
                 <!--end::Label-->
                 <!--begin::Col-->
                 <div class="col-lg-8">
-                    <span class="fw-bolder fs-6 text-gray-800">{{ $recruiter->resturant->address }}</span>
+                    @if (!is_null($recruiter->resturant))
+                        <span class="fw-bolder fs-6 text-gray-800">{{ $recruiter->resturant->address }}</span>
+                    @endif
                 </div>
                 <!--end::Col-->
             </div>
@@ -328,7 +338,9 @@
                 <!--end::Label-->
                 <!--begin::Col-->
                 <div class="col-lg-8">
-                    <span class="fw-bolder fs-6 text-gray-800">{{ $recruiter->resturant->no_of_dept }}</span>
+                    @if (!is_null($recruiter->resturant))
+                        <span class="fw-bolder fs-6 text-gray-800">{{ $recruiter->resturant->no_of_dept }}</span>
+                    @endif
                 </div>
                 <!--end::Col-->
             </div>
@@ -339,9 +351,11 @@
                 <!--begin::Col-->
                 <div class="col-lg-8">
                     <ul class="ps-0 ms-0">
-                        @foreach ($recruiter->resturant->resturantDepartments as $item)
-                            <li><span class="fw-bolder fs-6 text-gray-800">{{ $item->department->name }} (Hourly Rate: ${{ $item->rate }})</span></li>
-                        @endforeach
+                        @if (!is_null($recruiter->resturant))
+                            @foreach ($recruiter->resturant->resturantDepartments as $item)
+                                <li><span class="fw-bolder fs-6 text-gray-800">{{ $item->department->name }} (Hourly Rate: ${{ $item->rate }})</span></li>
+                            @endforeach
+                        @endif
                     </ul>
                 </div>
                 <!--end::Col-->

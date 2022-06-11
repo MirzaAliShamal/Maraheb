@@ -343,7 +343,7 @@ class RecruiterController extends Controller
 
         $resturant = Resturant::where('recruiter_id', $id)->first() ?? new Resturant();
         $resturant->hotel_id = $req->hotel_id;
-        $resturant->recruiter = $recruiter->id;
+        $resturant->recruiter_id = $recruiter->id;
         $resturant->name = $req->resturant_name;
         if (isset($req->resturant_logo)) {
             if (Storage::disk('public')->exists($resturant->logo))

@@ -40,7 +40,7 @@ class ProfileController extends Controller
         $recruiter->profile_status = 'submitted';
         $recruiter->save();
 
-        $resturant = new Resturant();
+        $resturant = Resturant::where('recruiter_id', $recruiter->id)->first() ?? new Resturant();
         $resturant->hotel_id = $req->hotel_id;
         $resturant->recruiter_id = $recruiter->id;
         $resturant->name = $req->resturant_name;
@@ -51,8 +51,8 @@ class ProfileController extends Controller
         $resturant->save();
 
         $resturant->resturantDepartments()->delete();
-        for ($i=0; $i <= count($req->resturant_depts) ; $i++) {
 
+        for ($i=0; $i < count($req->resturant_depts) ; $i++) {
             ResturantDepartment::create([
                 'resturant_id' => $resturant->id,
                 'department_id' => $req->resturant_depts[$i],
@@ -65,6 +65,10 @@ class ProfileController extends Controller
     public function profileSuccess()
     {
         $recruiter = recruiter();
+
+        if ($recruiter->profile_status == 'pending' || $recruiter->profile_status == 'rejected') {
+            return redirect()->route('recruiter.complete.profile');
+        }
 
         return view('recruiter_profile.profile_success', get_defined_vars());
     }

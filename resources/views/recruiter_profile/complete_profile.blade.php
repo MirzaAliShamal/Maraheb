@@ -114,25 +114,25 @@
                                             <select name="hotel_id" id="hotel_id" onchange="validateBtn()" class="chosen-search-select">
                                                 <option value="" disabled selected>Select Hotel</option>
                                                 @foreach (hotels() as $item)
-                                                    <option value="{{ $item->id }}" {{ $recruiter->resturant->hotel_id == $item->id ? 'selected' : '' }}>{{ $item->name }}</option>
+                                                    <option value="{{ $item->id }}" {{ !is_null($recruiter->resturant) ? $recruiter->resturant->hotel_id == $item->id ? 'selected' : '' : '' }}>{{ $item->name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
                                         <div class="form-group col-lg-6 col-md-12">
                                             <label for="resturant_name">Resturant Name *</label>
-                                            <input type="text" id="resturant_name" name="resturant_name" value="{{ $recruiter->resturant->name }}" onkeyup="validateBtn()" placeholder="KFC" autocomplete="off">
+                                            <input type="text" id="resturant_name" name="resturant_name" value="{{ !is_null($recruiter->resturant) ? $recruiter->resturant->name : '' }}" onkeyup="validateBtn()" placeholder="KFC" autocomplete="off">
                                         </div>
                                         <div class="form-group col-lg-6 col-md-12">
                                             <label for="resturant_trade_license">Resturant Trade License *</label>
-                                            <input type="text" id="resturant_trade_license" name="resturant_trade_license" value="{{ $recruiter->resturant->trade_license }}" onkeyup="validateBtn()" placeholder="123456" autocomplete="off">
+                                            <input type="text" id="resturant_trade_license" name="resturant_trade_license" value="{{ !is_null($recruiter->resturant) ? $recruiter->resturant->trade_license : '' }}" onkeyup="validateBtn()" placeholder="123456" autocomplete="off">
                                         </div>
                                         <div class="form-group col-lg-6 col-md-12">
                                             <label for="resturant_address">Resturant Address *</label>
-                                            <input type="text" id="resturant_address" name="resturant_address" value="{{ $recruiter->resturant->address }}" onkeyup="validateBtn()" placeholder="" autocomplete="off">
+                                            <input type="text" id="resturant_address" name="resturant_address" value="{{ !is_null($recruiter->resturant) ? $recruiter->resturant->address : '' }}" onkeyup="validateBtn()" placeholder="" autocomplete="off">
                                         </div>
                                         <div class="form-group col-lg-6 col-md-12">
                                             <label for="no_of_dept">No. of Departments *</label>
-                                            <input type="text" id="no_of_dept" name="no_of_dept" value="{{ $recruiter->resturant->no_of_dept }}" onkeyup="validateBtn()" placeholder="0" autocomplete="off" onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57">
+                                            <input type="text" id="no_of_dept" name="no_of_dept" value="{{ !is_null($recruiter->resturant) ? $recruiter->resturant->no_of_dept : '' }}" onkeyup="validateBtn()" placeholder="0" autocomplete="off" onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57">
                                         </div>
                                         <div class="form-group col-lg-12 col-md-12">
                                             <label for="resturant_depts">Select Departments *</label>
@@ -144,7 +144,7 @@
                                                             <input id="check-{{ $loop->iteration }}" type="checkbox"
                                                                 name="resturant_depts[]"
                                                                 value="{{ $item->id }}" class="resturant-depts"
-                                                                {{ checkResturantDepts($recruiter->resturant->id, $item->id) ? 'checked' : '' }}
+                                                                {{ !is_null($recruiter->resturant) ? checkResturantDepts($recruiter->resturant->id, $item->id) ? 'checked' : '' : '' }}
                                                             >
                                                             <label for="check-{{ $loop->iteration }}">{{ $item->name }}</label>
                                                         </li>

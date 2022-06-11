@@ -51,7 +51,7 @@
 
             .hourly-rate-input {
                 height: auto !important;
-                padding: 4px 10px 4px 20px !important;
+                padding: 4px 10px 4px 40px !important;
                 font-size: 13px !important;
             }
 

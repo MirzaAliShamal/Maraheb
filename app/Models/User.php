@@ -59,6 +59,8 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'experience_min' => 'int',
+        'experience_max' => 'int',
     ];
 
     public function getNameAttribute() {
@@ -82,7 +84,19 @@ class User extends Authenticatable
         return $this->hasOne(VerifyUser::class);
     }
 
-    public function userSpecialises() {
-        return $this->hasMany(UserSpecialise::class);
+    public function userSpecialisations() {
+        return $this->hasMany(UserSpecialisation::class);
+    }
+
+    public function userDepartments() {
+        return $this->hasMany(UserDepartment::class);
+    }
+
+    public function eventCandidates() {
+        return $this->hasMany(EventCandidate::class);
+    }
+
+    public function eventCandidateSlots() {
+        return $this->hasMany(EventCandidateSlot::class);
     }
 }

@@ -168,21 +168,6 @@
                                 <!--end::Input-->
                             </div>
                         </div>
-                        <div class="col-lg-6">
-                            <div class="fv-row mb-7">
-                                <!--begin::Label-->
-                                <label class="required fw-bold fs-6 mb-2">Zip/Postal Code</label>
-                                <!--end::Label-->
-                                <!--begin::Input-->
-                                <input type="text" onkeyup="validateBtn()" name="zip_code" class="form-control form-control-solid mb-3 mb-lg-0 @error('zip_code') is-invalid @enderror" value="{{ $user->zip_code }}" autocomplete="off">
-                                @error('zip_code')
-                                    <span class="invalid-feedback">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                                <!--end::Input-->
-                            </div>
-                        </div>
 
                         <div class="col-lg-6">
                             <div class="fv-row mb-7">
@@ -197,23 +182,48 @@
                             </div>
                         </div>
 
-                        <div class="col-lg-6">
+                        <div class="col-lg-12">
                             <div class="fv-row mb-7">
                                 <!--begin::Label-->
-                                <label class="required fw-bold fs-6 mb-2">Specialise</label>
+                                <label class="required fw-bold fs-6 mb-2">Specialisations</label>
                                 <!--end::Label-->
                                 <!--begin::Input-->
-                                <select class="form-select form-select-solid" name="specialise[]" onchange="validateBtn()" data-control="select2" data-placeholder="Choose a field..." data-allow-clear="true" multiple="multiple">
+                                <select class="form-select form-select-solid" name="specialisation[]" onchange="validateBtn()" data-control="select2" data-placeholder="Choose a field..." data-allow-clear="true" multiple="multiple">
                                     <option></option>
-                                    @foreach (departments() as $item)
+                                    @foreach (specialisations() as $item)
                                         <option value="{{ $item->id }}"
-                                            {{ $user->userSpecialises()->count() > 0 ? in_array($item->id, $user->userSpecialises->pluck('department_id')->toArray()) ? 'selected' : '' : '' }}
+                                            {{ $user->userSpecialisations()->count() > 0 ? in_array($item->id, $user->userSpecialisations->pluck('specialisation_id')->toArray()) ? 'selected' : '' : '' }}
                                         >
                                             {{ $item->name }}
                                         </option>
                                     @endforeach
                                 </select>
-                                @error('specialise')
+                                @error('specialisation')
+                                    <span class="invalid-feedback">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                                <!--end::Input-->
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12">
+                            <div class="fv-row mb-7">
+                                <!--begin::Label-->
+                                <label class="required fw-bold fs-6 mb-2">Departments</label>
+                                <!--end::Label-->
+                                <!--begin::Input-->
+                                <select class="form-select form-select-solid" name="department[]" onchange="validateBtn()" data-control="select2" data-placeholder="Choose a field..." data-allow-clear="true" multiple="multiple">
+                                    <option></option>
+                                    @foreach (departments() as $item)
+                                        <option value="{{ $item->id }}"
+                                            {{ $user->userDepartments()->count() > 0 ? in_array($item->id, $user->userDepartments->pluck('department_id')->toArray()) ? 'selected' : '' : '' }}
+                                        >
+                                            {{ $item->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                @error('department')
                                     <span class="invalid-feedback">
                                         <strong>{{ $message }}</strong>
                                     </span>

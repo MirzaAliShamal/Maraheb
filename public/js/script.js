@@ -813,6 +813,27 @@
         });
 	}
 
+	//Datepicker
+	if($('.eventDate').length){
+		$('.eventDate').daterangepicker({
+            minDate: moment(),
+            locale: {
+                format: 'MM/DD/YYYY',
+            }
+        });
+	}
+
+	//Timepicker
+	if($('.eventTime').length){
+		$('.eventTime').timepicker({
+            minuteStep: 1,
+            icons: {
+                up: 'fa fa-chevron-up',
+                down: 'fa fa-chevron-down'
+            }
+        });
+	}
+
 	// Tooltip
 	$(function () {
 	  $('[data-toggle="tooltip"]').tooltip()

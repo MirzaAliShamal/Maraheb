@@ -14,5 +14,6 @@ class VerifyCsrfToken extends Middleware
     protected $except = [
         'user/upload-attachment',
         'recruiter/upload-attachment',
+        'purchase-manager/upload-attachment',
     ];
 }

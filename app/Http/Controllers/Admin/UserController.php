@@ -5,12 +5,15 @@ namespace App\Http\Controllers\Admin;
 use DataTables;
 use Carbon\Carbon;
 use App\Models\User;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Models\UserDepartment;
 use App\Models\UserSpecialise;
+use App\Models\UserSpecialisation;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\User\RejectedProfileEmail;
 use App\Mail\User\ApprovedProfileEmail;
+use App\Mail\User\RejectedProfileEmail;
 use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
@@ -80,6 +83,7 @@ class UserController extends Controller
             return view('admin.user.submitted', get_defined_vars());
         }
     }
+
     public function approved(Request $req)
     {
         $list = User::where('profile_status', 'approved')->orderBy("id", "DESC");
@@ -283,7 +287,7 @@ class UserController extends Controller
 
     public function profile($id = null)
     {
-        $user = User::with('userSpecialises', 'userSpecialises.department')->find($id);
+        $user = User::with('userSpecialisations', 'userSpecialisations.specialisation', 'userDepartments', 'userDepartments.department')->find($id);
         if ($user->profile_status == 'pending') {
             return redirect()->back();
         }
@@ -293,7 +297,7 @@ class UserController extends Controller
 
     public function edit($id = null)
     {
-        $user = User::with('userSpecialises', 'userSpecialises.department')->find($id);
+        $user = User::with('userSpecialisations', 'userSpecialisations.specialisation', 'userDepartments', 'userDepartments.department')->find($id);
 
         if ($user->profile_status == 'pending') {
             return redirect()->back();
@@ -311,8 +315,11 @@ class UserController extends Controller
         }
 
         if (isset($req->avatar)) {
-            if (Storage::disk('public')->exists($user->avatar))
-                Storage::disk('public')->delete($user->avatar);
+            if (!is_null($user->avatar)) {
+                if (Storage::disk('public')->exists($user->avatar)) {
+                    Storage::disk('public')->delete($user->avatar);
+                }
+            }
 
             $user->avatar = $req->avatar->store($user->id.'-user-attachments', 'public');
         }
@@ -324,17 +331,27 @@ class UserController extends Controller
         $user->address = $req->address;
         $user->country = $req->country;
         $user->city = $req->city;
-        $user->zip_code = $req->zip_code;
+        // $user->zip_code = $req->zip_code;
         $user->experience_min = $req->experience_min;
         $user->experience_max = $req->experience_max;
         $user->save();
 
-        $user->userSpecialises()->delete();
-        if (isset($req->specialise)) {
-            for ($i=0; $i < count($req->specialise) ; $i++) {
-                UserSpecialise::create([
+        $user->userSpecialisations()->delete();
+        if (isset($req->specialisation)) {
+            for ($i=0; $i < count($req->specialisation) ; $i++) {
+                UserSpecialisation::create([
                     'user_id' => $user->id,
-                    'department_id' => $req->specialise[$i],
+                    'specialisation_id' => $req->specialisation[$i],
+                ]);
+            }
+        }
+
+        $user->userDepartments()->delete();
+        if (isset($req->department)) {
+            for ($i=0; $i < count($req->department) ; $i++) {
+                UserDepartment::create([
+                    'user_id' => $user->id,
+                    'department_id' => $req->department[$i],
                 ]);
             }
         }

@@ -8,7 +8,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class PurchaseManager extends Model
+class PurchaseManager extends Authenticatable
 {
     use HasFactory, Notifiable;
 
@@ -46,7 +46,6 @@ class PurchaseManager extends Model
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'specalise' => 'array'
     ];
 
     public function getNameAttribute() {

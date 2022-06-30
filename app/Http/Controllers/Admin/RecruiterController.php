@@ -4,12 +4,13 @@ namespace App\Http\Controllers\Admin;
 
 use DataTables;
 use Carbon\Carbon;
-use App\Models\Resturant;
 use App\Models\Recruiter;
+use App\Models\Resturant;
 use Illuminate\Http\Request;
 use App\Models\ResturantDepartment;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 use App\Mail\Recruiter\ApprovedProfileEmail;
 use App\Mail\Recruiter\RejectedProfileEmail;
 
@@ -325,8 +326,11 @@ class RecruiterController extends Controller
         }
 
         if (isset($req->avatar)) {
-            if (Storage::disk('public')->exists($recruiter->avatar))
-                Storage::disk('public')->delete($recruiter->avatar);
+            if (!is_null($recruiter->avatar)) {
+                if (Storage::disk('public')->exists($recruiter->avatar)) {
+                    Storage::disk('public')->delete($recruiter->avatar);
+                }
+            }
 
             $recruiter->avatar = $req->avatar->store($recruiter->id.'-recruiter-attachments', 'public');
         }
@@ -346,8 +350,11 @@ class RecruiterController extends Controller
         $resturant->recruiter_id = $recruiter->id;
         $resturant->name = $req->resturant_name;
         if (isset($req->resturant_logo)) {
-            if (Storage::disk('public')->exists($resturant->logo))
-                Storage::disk('public')->delete($resturant->logo);
+            if (!is_null($resturant->logo)) {
+                if (Storage::disk('public')->exists($resturant->logo)) {
+                    Storage::disk('public')->delete($resturant->logo);
+                }
+            }
 
             $resturant->logo = $req->resturant_logo->store($recruiter->id.'-recruiter-attachments', 'public');
         }

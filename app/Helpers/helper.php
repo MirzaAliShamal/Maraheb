@@ -1,8 +1,10 @@
 <?php
 
+use Carbon\Carbon;
 use App\Models\Hotel;
 use App\Models\Country;
 use App\Models\Department;
+use App\Models\Specialisation;
 use App\Models\ResturantDepartment;
 
 
@@ -12,6 +14,10 @@ function admin() {
 
 function recruiter() {
     return Auth::guard('recruiter')->user();
+}
+
+function purchaseManager() {
+    return Auth::guard('purchase_manager')->user();
 }
 
 function generateNumericOTP($n) {
@@ -51,6 +57,10 @@ function departments() {
     return Department::whereStatus(true)->orderBy('name', 'ASC')->get();
 }
 
+function specialisations() {
+    return Specialisation::whereStatus(true)->orderBy('name', 'ASC')->get();
+}
+
 function checkResturantDepts($resturant, $department) {
     $exists = ResturantDepartment::where('resturant_id', $resturant)
         ->where('department_id', $department)
@@ -73,4 +83,14 @@ function checkResturantDeptHourly($resturant, $department) {
     } else {
         return $res->rate;
     }
+}
+
+function generateDateRange(Carbon $start_date, Carbon $end_date) {
+    $dates = [];
+
+    for($date = $start_date->copy(); $date->lte($end_date); $date->addDay()) {
+        $dates[] = $date->format('Y-m-d');
+    }
+
+    return $dates;
 }

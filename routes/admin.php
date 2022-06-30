@@ -2,11 +2,13 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\EventController;
 use App\Http\Controllers\Admin\HotelController;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\DepartmentController;
 use App\Http\Controllers\Admin\RecruiterController;
+use App\Http\Controllers\Admin\DepartmentController;
+use App\Http\Controllers\Admin\SpecialisationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +29,13 @@ Route::post('/logout', [LoginController::class, 'destroy'])->name('logout');
 Route::middleware('auth:admin')->group(function () {
     Route::controller(DashboardController::class)->group(function () {
         Route::get('/dashboard', 'dashboard')->name('dashboard');
+    });
+
+    Route::prefix('event')->name('event.')->controller(EventController::class)->group(function () {
+        Route::get('/pending', 'pending')->name('pending');
+        Route::get('/approved', 'approved')->name('approved');
+        Route::get('/rejected', 'rejected')->name('rejected');
+        Route::get('/delete/{id?}', 'delete')->name('delete');
     });
 
     Route::prefix('user')->name('user.')->controller(UserController::class)->group(function () {
@@ -65,6 +74,15 @@ Route::middleware('auth:admin')->group(function () {
     });
 
     Route::prefix('department')->name('department.')->controller(DepartmentController::class)->group(function () {
+        Route::get('/list', 'list')->name('list');
+        Route::get('/add', 'add')->name('add');
+        Route::get('/edit/{id?}', 'edit')->name('edit');
+        Route::post('/save/{id?}', 'save')->name('save');
+        Route::get('/delete/{id?}', 'delete')->name('delete');
+        Route::get('/status/{id?}', 'status')->name('status');
+    });
+
+    Route::prefix('specialisation')->name('specialisation.')->controller(SpecialisationController::class)->group(function () {
         Route::get('/list', 'list')->name('list');
         Route::get('/add', 'add')->name('add');
         Route::get('/edit/{id?}', 'edit')->name('edit');

@@ -15,7 +15,7 @@ class Department extends Model
         return $this->hasMany(ResturantDepartment::class);
     }
 
-    public function userSpecialises() {
-        return $this->hasMany(UserSpecialise::class);
+    public function userDepartments() {
+        return $this->hasMany(UserDepartment::class);
     }
 }

@@ -27,6 +27,8 @@ class RedirectIfAuthenticated
                     return redirect(RouteServiceProvider::ADMIN);
                 } else if ($guard == "recruiter") {
                     return redirect(RouteServiceProvider::RECRUITER);
+                } else if ($guard == "purchase_manager") {
+                    return redirect(RouteServiceProvider::PURCHASE);
                 } else {
                     return redirect(RouteServiceProvider::USER);
                 }

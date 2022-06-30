@@ -168,5 +168,5 @@
 </section>
 @endsection
 @section('js')
-    <script src="{{ asset('js/recruiter_profile.js') }}"></script>
+    <script src="{{ asset('js/recruiter_profile.js?v=1.1') }}"></script>
 @endsection

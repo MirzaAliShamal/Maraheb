@@ -69,6 +69,18 @@ class LoginRequest extends FormRequest
 
             RateLimiter::clear($this->throttleKey());
         }
+
+        if ($this->role === 'purchase') {
+            if (! Auth::guard('purchase_manager')->attempt($this->only('email', 'password'), $this->boolean('remember'))) {
+                RateLimiter::hit($this->throttleKey());
+
+                throw ValidationException::withMessages([
+                    'email' => trans('auth.failed'),
+                ]);
+            }
+
+            RateLimiter::clear($this->throttleKey());
+        }
     }
 
     /**

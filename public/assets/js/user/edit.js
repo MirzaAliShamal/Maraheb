@@ -52,13 +52,6 @@ var validator = FormValidation.formValidation(
                         message: 'City is required'
                     }
                 }
-            },
-            'zip_code': {
-                validators: {
-                    notEmpty: {
-                        message: 'Zip/Postal Code is required'
-                    }
-                }
             }
         },
 
@@ -81,10 +74,11 @@ function validateBtn() {
     let country = $("[name='country'] option:selected");
     let address = $("[name='address']");
     let city = $("[name='city']");
-    let zip_code = $("[name='zip_code']");
-    let specialise = $("[name='specialise[]'] option:selected");
+    // let zip_code = $("[name='zip_code']");
+    let specialisation = $("[name='specialisation[]'] option:selected");
+    let department = $("[name='department[]'] option:selected");
 
-    if (firstName.val().length > 0 && lastName.val().length > 0 && dob.val().length > 0 && gender.val().length > 0 && country.val().length > 0 && address.val().length && city.val().length > 0 && zip_code.val().length > 0 && specialise.length > 0) {
+    if (firstName.val().length > 0 && lastName.val().length > 0 && dob.val().length > 0 && gender.val().length > 0 && country.val().length > 0 && address.val().length && city.val().length > 0 && specialisation.length > 0 && department.length > 0) {
         $("#editProfileBtn").prop('disabled', false);
     } else {
         $("#editProfileBtn").prop('disabled', true);
@@ -93,7 +87,7 @@ function validateBtn() {
 
 (function($) {
     initDatePicker('#dob');
-
+    validateBtn();
 })(jQuery);
 
 const submitButton = document.getElementById('editProfileBtn');

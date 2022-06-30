@@ -16,7 +16,7 @@
     <!--end::Item-->
     <!--begin::Item-->
     <li class="breadcrumb-item text-muted">
-        <a href="{{ route('admin.hotel.list') }}" class="text-muted text-hover-primary">Departments</a>
+        <a href="{{ route('admin.department.list') }}" class="text-muted text-hover-primary">Departments</a>
     </li>
     <!--end::Item-->
     <!--begin::Item-->

@@ -9,6 +9,12 @@
             <div class="content-column col-lg-10 col-md-12 col-sm-12">
                 <div class="inner-column wow fadeInUp" data-wow-delay="1000ms">
                     <h2 class="fw-bold text-center mb-5">Complete your Profile</h2>
+                    @if ($user->profile_status == 'rejected')
+                        <div class="message-box error">
+                            <p>Error: Your profile has been rejected, Please try again!</p>
+                            <button class="close-btn"><span class="close_icon"></span></button>
+                        </div>
+                    @endif
                     <form action="{{ route('user.profile.save') }}" method="POST" enctype="multipart/form-data" class="default-form" id="applicationForm" data-id="{{ $user->id }}">
                         @csrf
                         <div class="ls-widget">
@@ -46,57 +52,57 @@
                                         </div>
                                         <div class="form-group col-lg-6 col-md-12">
                                             <label for="dob">Date of birth *</label>
-                                            <input type="text" id="dob" name="dob" class="datepicker" value="" placeholder="mm/dd/yyyy" onchange="validateBtn()" autocomplete="off" readonly>
+                                            <input type="text" id="dob" name="dob" class="datepicker" value="{{ $user->dob }}" placeholder="mm/dd/yyyy" onchange="validateBtn()" autocomplete="off" readonly>
                                         </div>
                                         <div class="form-group col-lg-6 col-md-12">
                                             <label for="gender">Gender *</label>
                                             <select name="gender" id="gender" onchange="validateBtn()" class="chosen-select">
-                                                <option value="male">Male</option>
-                                                <option value="female">Female</option>
-                                                <option value="other">Other</option>
+                                                <option value="male" {{ $user->gender == 'male' ? 'selected' : '' }}>Male</option>
+                                                <option value="female" {{ $user->gender == 'female' ? 'selected' : '' }}>Female</option>
+                                                <option value="other" {{ $user->gender == 'other' ? 'selected' : '' }}>Other</option>
                                             </select>
                                         </div>
                                         <div class="form-group col-lg-12 col-md-12">
                                             <label for="address">Address *</label>
-                                            <input type="text" id="address" name="address" value="" onkeyup="validateBtn()" placeholder="Your address here" autocomplete="off">
+                                            <input type="text" id="address" name="address" value="{{ $user->address }}" onkeyup="validateBtn()" placeholder="Your address here" autocomplete="off">
                                         </div>
-                                        <div class="form-group col-lg-4 col-md-12">
+                                        <div class="form-group col-lg-6 col-md-12">
                                             <label for="country">Country *</label>
                                             <select name="country" id="country" onchange="validateBtn()" class="chosen-search-select">
                                                 @foreach (countries() as $item)
-                                                    <option value="{{ $item->name }}">{{ $item->name }}</option>
+                                                    <option value="{{ $item->name }}" {{ $user->country == $item->name ? 'selected' : '' }}>{{ $item->name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
-                                        <div class="form-group col-lg-4 col-md-12">
-                                            <label for="city">City *</label>
-                                            <input type="text" id="city" name="city" value="" onkeyup="validateBtn()" placeholder="City" autocomplete="off">
-                                        </div>
-                                        <div class="form-group col-lg-4 col-md-12">
-                                            <label for="zip_code">Zip/Postal Code *</label>
-                                            <input type="text" id="zip_code" name="zip_code" value="" onkeyup="validateBtn()" placeholder="12345" autocomplete="off">
-                                        </div>
                                         <div class="form-group col-lg-6 col-md-12">
+                                            <label for="city">City *</label>
+                                            <input type="text" id="city" name="city" value="{{ $user->city }}" onkeyup="validateBtn()" placeholder="City" autocomplete="off">
+                                        </div>
+                                        <div class="form-group col-lg-12 col-md-12">
                                             <label for="experience">Experience <small>(In years)</small> *</label>
                                             <div class="range-slider-one experience-range">
                                                 <div class="experience-range-slider"></div>
                                                 <div class="input-outer">
                                                     <div class="amount-outer">
                                                         <span class="amount experience-amount">
-                                                            <span class="min">0</span> years -
-                                                            <span class="max">0</span> years
+                                                            <span class="min">{{ $user->experience_min }}</span> years -
+                                                            <span class="max">{{ $user->experience_max }}</span> years
                                                         </span>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <input type="hidden" name="experience_min" value="">
-                                            <input type="hidden" name="experience_max" value="">
+                                            <input type="hidden" name="experience_min" value="{{ $user->experience_min }}">
+                                            <input type="hidden" name="experience_max" value="{{ $user->experience_max }}">
                                         </div>
-                                        <div class="form-group col-lg-6 col-md-12">
+                                        <div class="form-group col-lg-12 col-md-12">
                                             <label for="experience">Specialise in *</label>
-                                            <select data-placeholder="Choose a field..." name="specialise[]" onchange="validateBtn()" class="chosen-select" multiple tabindex="4">
-                                                @foreach (departments() as $item)
-                                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                            <select data-placeholder="Choose a field..." name="specialisation[]" onchange="validateBtn()" class="chosen-select" multiple tabindex="4">
+                                                @foreach (specialisations() as $item)
+                                                    <option value="{{ $item->id }}"
+                                                        {{ $user->userSpecialisations()->count() > 0 ? in_array($item->id, $user->userSpecialisations->pluck('specialisation_id')->toArray()) ? 'selected' : '' : '' }}
+                                                    >
+                                                        {{ $item->name }}
+                                                    </option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -159,5 +165,5 @@
 </section>
 @endsection
 @section('js')
-    <script src="{{ asset('js/user_profile.js') }}"></script>
+    <script src="{{ asset('js/user_profile.js?v=1.20') }}"></script>
 @endsection

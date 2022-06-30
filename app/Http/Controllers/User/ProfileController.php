@@ -5,7 +5,8 @@ namespace App\Http\Controllers\User;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use App\Models\UserSpecialise;
+use App\Models\UserDepartment;
+use App\Models\UserSpecialisation;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 
@@ -34,7 +35,7 @@ class ProfileController extends Controller
         $user->address = $req->address;
         $user->country = $req->country;
         $user->city = $req->city;
-        $user->zip_code = $req->zip_code;
+        // $user->zip_code = $req->zip_code;
         $user->experience_min = $req->experience_min;
         $user->experience_max = $req->experience_max;
         $user->intro_video = $req->intro_video;
@@ -42,11 +43,11 @@ class ProfileController extends Controller
         $user->profile_status = 'submitted';
         $user->save();
 
-        if (isset($req->specialise)) {
-            for ($i=0; $i < count($req->specialise) ; $i++) {
-                UserSpecialise::create([
+        if (isset($req->specialisation)) {
+            for ($i=0; $i < count($req->specialisation) ; $i++) {
+                UserSpecialisation::create([
                     'user_id' => $user->id,
-                    'department_id' => $req->specialise[$i],
+                    'specialisation_id' => $req->specialisation[$i],
                 ]);
             }
         }

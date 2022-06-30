@@ -234,12 +234,26 @@
         </div>
         <div class="row mb-7">
             <!--begin::Label-->
-            <label class="col-lg-4 fw-bold text-muted">Specialise</label>
+            <label class="col-lg-4 fw-bold text-muted">Specialisation</label>
             <!--end::Label-->
             <!--begin::Col-->
             <div class="col-lg-8">
                 <ul class="ps-0 ms-0">
-                    @foreach ($user->userSpecialises as $item)
+                    @foreach ($user->userSpecialisations as $item)
+                        <li><span class="fw-bolder fs-6 text-gray-800">{{ $item->specialisation->name }}</span></li>
+                    @endforeach
+                </ul>
+            </div>
+            <!--end::Col-->
+        </div>
+        <div class="row mb-7">
+            <!--begin::Label-->
+            <label class="col-lg-4 fw-bold text-muted">Departments</label>
+            <!--end::Label-->
+            <!--begin::Col-->
+            <div class="col-lg-8">
+                <ul class="ps-0 ms-0">
+                    @foreach ($user->userDepartments as $item)
                         <li><span class="fw-bolder fs-6 text-gray-800">{{ $item->department->name }}</span></li>
                     @endforeach
                 </ul>

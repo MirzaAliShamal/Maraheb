@@ -52,6 +52,9 @@ new Dropzone("#upload_avatar", {
                     success: function (response){
                         alert(response.success +" File has been successfully removed!");
                         $(".upload_avatar").val("");
+
+                        $(".upload_avatar").removeClass('error');
+                        $("#upload_avatar-error").remove();
                         validateBtn();
                     },
                     error: function(e) {
@@ -72,6 +75,8 @@ new Dropzone("#upload_avatar", {
         file.previewElement.querySelector("img").alt = response.success;
         olddatadzname.innerHTML = response.success;
         $(".upload_avatar").val(response.success);
+        $(".upload_avatar").removeClass('error');
+        $("#upload_avatar-error").remove();
         validateBtn();
     },
     error: function(file, response) {
@@ -79,15 +84,11 @@ new Dropzone("#upload_avatar", {
             var message = response; //dropzone sends it's own error messages in string
         else
             var message = response.message;
-        file.previewElement.classList.add("dz-error");
-        _ref = file.previewElement.querySelectorAll("[data-dz-errormessage]");
-        _results = [];
-        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-            node = _ref[_i];
-            _results.push(node.textContent = message);
-        }
+
+        $(".upload_avatar").addClass('error');
+        $('<label id="upload_avatar-error" class="error">'+message+'</label>').insertAfter(".upload_avatar");
         validateBtn();
-        return _results;
+        // return _results;
     }
 });
 
@@ -138,6 +139,9 @@ new Dropzone("#intro_video", {
                     success: function (response){
                         alert(response.success +" File has been successfully removed!");
                         $(".intro_video").val("");
+
+                        $(".intro_video").removeClass('error');
+                        $("#intro_video-error").remove();
                         validateBtn();
                     },
                     error: function(e) {
@@ -165,15 +169,10 @@ new Dropzone("#intro_video", {
             var message = response; //dropzone sends it's own error messages in string
         else
             var message = response.message;
-        file.previewElement.classList.add("dz-error");
-        _ref = file.previewElement.querySelectorAll("[data-dz-errormessage]");
-        _results = [];
-        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-            node = _ref[_i];
-            _results.push(node.textContent = message);
-        }
+
+        $(".intro_video").addClass('error');
+        $('<label id="intro_video-error" class="error">'+message+'</label>').insertAfter(".intro_video");
         validateBtn();
-        return _results;
     }
 });
 
@@ -224,6 +223,9 @@ new Dropzone("#upload_cv", {
                     success: function (response){
                         alert(response.success +" File has been successfully removed!");
                         $(".upload_cv").val("");
+
+                        $(".upload_cv").removeClass('error');
+                        $("#upload_cv-error").remove();
                         validateBtn();
                     },
                     error: function(e) {
@@ -252,15 +254,10 @@ new Dropzone("#upload_cv", {
             var message = response; //dropzone sends it's own error messages in string
         else
             var message = response.message;
-        file.previewElement.classList.add("dz-error");
-        _ref = file.previewElement.querySelectorAll("[data-dz-errormessage]");
-        _results = [];
-        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-            node = _ref[_i];
-            _results.push(node.textContent = message);
-        }
+
+        $(".upload_cv").addClass('error');
+        $('<label id="upload_cv-error" class="error">'+message+'</label>').insertAfter(".upload_cv");
         validateBtn();
-        return _results;
     }
 });
 
@@ -271,14 +268,14 @@ function validateBtn() {
     let dob = $("[name='dob']");
     let gender = $("[name='gender'] option:selected");
     let country = $("[name='country'] option:selected");
-    let specialise = $("[name='specialise[]'] option:selected");
+    let specialisation = $("[name='specialisation[]'] option:selected");
     let address = $("[name='address']");
     let city = $("[name='city']");
-    let zip_code = $("[name='zip_code']");
+    // let zip_code = $("[name='zip_code']");
     let intro_video = $("[name='intro_video']");
     let upload_cv = $("[name='upload_cv']");
 
-    if (avatar.val().length > 0 && firstName.val().length > 0 && lastName.val().length > 0 && dob.val().length > 0 && gender.val().length > 0 && country.val().length > 0 && specialise.length > 0 && address.val().length && city.val().length > 0 && zip_code.val().length > 0 && intro_video.val().length > 0 && upload_cv.val().length > 0) {
+    if (avatar.val().length > 0 && firstName.val().length > 0 && lastName.val().length > 0 && dob.val().length > 0 && gender.val().length > 0 && country.val().length > 0 && specialisation.length > 0 && address.val().length && city.val().length > 0 && intro_video.val().length > 0 && upload_cv.val().length > 0) {
         $("#submitBtn").prop('disabled', false);
     } else {
         $("#submitBtn").prop('disabled', true);
@@ -296,7 +293,7 @@ function validateBtn() {
             specalise: "required",
             address: "required",
             city: "required",
-            zip_code: "required",
+            // zip_code: "required",
             experience: "required",
         },
     });

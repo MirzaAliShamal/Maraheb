@@ -43,5 +43,5 @@
 </section>
 @endsection
 @section('js')
-    <script src="{{ asset('js/recruiter/purchase_manager_list.js') }}"></script>
+    <script src="{{ asset('js/recruiter/purchase_manager/list.js') }}"></script>
 @endsection

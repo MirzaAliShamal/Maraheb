@@ -39,6 +39,10 @@ class AuthenticatedSessionController extends Controller
         if ($request->role === 'recruiter') {
             return redirect()->intended(RouteServiceProvider::RECRUITER);
         }
+
+        if ($request->role === 'purchase') {
+            return redirect()->intended(RouteServiceProvider::PURCHASE);
+        }
     }
 
     /**
@@ -61,6 +65,17 @@ class AuthenticatedSessionController extends Controller
     public function destroyRecruiter(Request $request)
     {
         Auth::guard('recruiter')->logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect('/');
+    }
+
+    public function destroyPurchase(Request $request)
+    {
+        Auth::guard('purchase_manager')->logout();
 
         $request->session()->invalidate();
 

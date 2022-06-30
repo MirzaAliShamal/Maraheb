@@ -52,6 +52,9 @@ new Dropzone("#upload_avatar", {
                     success: function (response){
                         alert(response.success +" File has been successfully removed!");
                         $(".upload_avatar").val("");
+
+                        $(".upload_avatar").removeClass('error');
+                        $("#upload_avatar-error").remove();
                         validateBtn();
                     },
                     error: function(e) {
@@ -79,13 +82,9 @@ new Dropzone("#upload_avatar", {
             var message = response; //dropzone sends it's own error messages in string
         else
             var message = response.message;
-        file.previewElement.classList.add("dz-error");
-        _ref = file.previewElement.querySelectorAll("[data-dz-errormessage]");
-        _results = [];
-        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-            node = _ref[_i];
-            _results.push(node.textContent = message);
-        }
+
+        $(".upload_avatar").addClass('error');
+        $('<label id="upload_avatar-error" class="error">'+message+'</label>').insertAfter(".upload_avatar");
         validateBtn();
         return _results;
     }
@@ -138,6 +137,9 @@ new Dropzone("#resturant_logo", {
                     success: function (response){
                         alert(response.success +" File has been successfully removed!");
                         $(".resturant_logo").val("");
+
+                        $(".resturant_logo").removeClass('error');
+                        $("#resturant_logo-error").remove();
                         validateBtn();
                     },
                     error: function(e) {
@@ -165,13 +167,9 @@ new Dropzone("#resturant_logo", {
             var message = response; //dropzone sends it's own error messages in string
         else
             var message = response.message;
-        file.previewElement.classList.add("dz-error");
-        _ref = file.previewElement.querySelectorAll("[data-dz-errormessage]");
-        _results = [];
-        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-            node = _ref[_i];
-            _results.push(node.textContent = message);
-        }
+
+        $(".resturant_logo").addClass('error');
+        $('<label id="resturant_logo-error" class="error">'+message+'</label>').insertAfter(".resturant_logo");
         validateBtn();
         return _results;
     }
